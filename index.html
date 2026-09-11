@@ -4,198 +4,368 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>minnatsu pocket diary</title>
-    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        * { box-sizing: border-box; font-family: 'Prompt', sans-serif; text-transform: lowercase; }
+        * { box-sizing: border-box; font-family: 'Mitr', sans-serif; text-transform: lowercase; font-weight: 300; }
+        
         body {
-            background-color: #fcf8f2;
-            color: #73685d;
+            background-color: #fff8e7;
+            background-image: radial-gradient(#f7e5c8 15%, transparent 16%);
+            background-size: 20px 20px;
+            color: #5c4b37;
             margin: 0;
-            padding: 15px;
+            padding: 12px;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
         }
+
         .game-card {
-            background: #ffffff;
+            background: #fffdf9;
             width: 100%;
             max-width: 420px;
-            border-radius: 28px;
-            box-shadow: 0 12px 35px rgba(166, 151, 136, 0.18);
-            border: 3px solid #f2e9de;
+            border-radius: 35px;
+            box-shadow: 0 15px 35px rgba(212, 175, 126, 0.3);
+            border: 4px solid #ffeed6;
             overflow: hidden;
             position: relative;
         }
+
         /* Top Bar */
         .top-bar {
-            background-color: #f7ede2;
-            padding: 15px 20px;
+            background-color: #ffe8cd;
+            padding: 12px 18px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-bottom: 3px solid #f2d4b2;
         }
-        .app-title { font-size: 1.1rem; font-weight: 600; color: #847161; margin: 0; }
+        .app-title { font-size: 1.05rem; font-weight: 400; color: #825c38; margin: 0; }
         .status-badge {
             background: #fff;
             padding: 4px 12px;
             border-radius: 20px;
             font-size: 0.85rem;
-            font-weight: 600;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+            color: #d97724;
+            box-shadow: inset 0 -2px 0 #f0d5be;
+            border: 2px solid #ffeedb;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
-        .bgm-btn { cursor: pointer; font-size: 0.85rem; user-select: none; }
+        .bgm-btn { 
+            cursor: pointer; 
+            font-size: 0.82rem; 
+            user-select: none; 
+            background: #fff; 
+            padding: 4px 10px; 
+            border-radius: 15px; 
+            border: 2px solid #ffeedb;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #825c38;
+        }
 
-        /* Character Dialogue */
+        /* EXP Bar & Level */
+        .exp-zone {
+            background: #fff3e3;
+            padding: 6px 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.75rem;
+            color: #a07850;
+        }
+        .exp-bar-outer {
+            flex: 1;
+            height: 10px;
+            background: #eed8c3;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #dfc3aa;
+        }
+        .exp-bar-inner {
+            height: 100%;
+            width: 30%;
+            background: linear-gradient(90deg, #ffd166, #f78c6b);
+            border-radius: 10px;
+            transition: width 0.3s;
+        }
+
+        /* Minnatsu Character Zone (2D Vector Character) */
         .minnatsu-box {
-            background: #faf4ed;
-            padding: 12px 18px;
+            background: #fff5e6;
+            padding: 12px 15px;
             display: flex;
             align-items: center;
             gap: 12px;
-            border-bottom: 2px dashed #ebe0d3;
+            border-bottom: 3px dashed #f0d8c0;
+            position: relative;
         }
         .avatar-img {
-            width: 48px;
-            height: 48px;
-            background: #e8d8c8;
+            width: 52px;
+            height: 52px;
+            background: #ffe3c4;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 1.5rem;
-            border: 2px solid #fff;
+            border: 3px solid #fff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
             flex-shrink: 0;
+            animation: float 3s ease-in-out infinite;
         }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+
         .speech-bubble {
             background: #fff;
-            padding: 8px 12px;
-            border-radius: 14px;
-            font-size: 0.82rem;
-            color: #6a5e52;
-            border: 1px solid #ebdcd0;
+            padding: 10px 14px;
+            border-radius: 18px;
+            font-size: 0.83rem;
+            color: #6b533e;
+            border: 2px solid #f2d8c2;
+            box-shadow: 0 4px 0 #f0d5be;
             line-height: 1.35;
+            position: relative;
+            flex: 1;
         }
 
-        /* Nav Bar */
+        /* Nav Grid */
         .nav-grid {
             display: flex;
-            background: #fff;
-            border-bottom: 2px solid #f2e9de;
+            background: #fff8ee;
+            padding: 6px;
+            gap: 6px;
+            border-bottom: 3px solid #f2d4b2;
         }
         .nav-item {
             flex: 1;
             text-align: center;
-            padding: 10px 2px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: #bfae9e;
+            padding: 8px 2px;
+            font-size: 0.78rem;
+            color: #a38970;
             cursor: pointer;
-            transition: 0.2s;
+            border-radius: 15px;
+            background: #fff;
+            border: 2px solid #f2e2ce;
+            transition: 0.15s;
         }
         .nav-item.active {
-            color: #8fa082;
-            border-bottom: 3px solid #8fa082;
+            color: #fff;
+            background: #8fa082;
+            border-color: #798a6c;
+            box-shadow: 0 3px 0 #617056;
         }
 
-        /* Screen Views */
-        .view-screen { display: none; padding: 18px; }
+        /* Views */
+        .view-screen { display: none; padding: 16px; }
         .view-screen.active { display: block; }
 
-        /* Pockets Selector */
-        .pocket-row { display: flex; gap: 8px; margin-bottom: 15px; }
+        /* Pocket Selector */
+        .pocket-row { display: flex; gap: 8px; margin-bottom: 14px; }
         .pocket-btn {
             flex: 1;
             padding: 8px 4px;
             background: #fff;
-            border: 2px solid #ede4d8;
-            border-radius: 12px;
-            font-size: 0.8rem;
-            color: #847161;
+            border: 2px solid #eedecf;
+            border-radius: 16px;
+            font-size: 0.78rem;
+            color: #8c7158;
             cursor: pointer;
             text-align: center;
+            box-shadow: 0 3px 0 #eedecf;
+            transition: 0.1s;
         }
         .pocket-btn.active {
-            background: #e2e8db;
-            border-color: #8fa082;
-            color: #556648;
-            font-weight: 600;
+            background: #ffaa5e;
+            border-color: #e28e43;
+            color: #fff;
+            box-shadow: 0 3px 0 #c7742b;
         }
 
         /* Input Form */
-        .form-group { display: flex; flex-direction: column; gap: 12px; }
+        .form-group { display: flex; flex-direction: column; gap: 10px; }
+        .type-selector { display: flex; gap: 10px; margin-bottom: 5px; }
+        .type-btn {
+            flex: 1; padding: 6px; border-radius: 12px; border: 2px solid #f5dfcb;
+            background: #fff; text-align: center; font-size: 0.8rem; cursor: pointer; color: #8c7158;
+        }
+        .type-btn.active-exp { background: #ff85a1; color: white; border-color: #e63946; }
+        .type-btn.active-inc { background: #52b788; color: white; border-color: #2d6a4f; }
+
         .amount-field {
             font-size: 2.2rem;
             text-align: right;
-            color: #6a7a5d;
-            font-weight: 600;
-            background: #faf8f5;
-            border: 2px solid #ede4d8;
-            border-radius: 16px;
-            padding: 10px 15px;
+            color: #f27a35;
+            background: #fffefb;
+            border: 3px solid #f5dfcb;
+            border-radius: 20px;
+            padding: 8px 15px;
             outline: none;
+            box-shadow: inset 0 3px 6px rgba(0,0,0,0.03);
         }
         .input-field {
             padding: 10px 14px;
-            border: 2px solid #ede4d8;
-            border-radius: 12px;
+            border: 2px solid #f5dfcb;
+            border-radius: 15px;
             outline: none;
-            font-size: 0.9rem;
-            background: #faf8f5;
+            font-size: 0.88rem;
+            background: #fffefb;
+            color: #6b533e;
         }
+
         .stamp-btn {
-            background: #d4a373;
+            background: #ff9f1c;
             color: white;
-            border: none;
-            padding: 14px;
-            border-radius: 16px;
-            font-size: 1.05rem;
-            font-weight: 600;
+            border: 2px solid #e08300;
+            padding: 12px;
+            border-radius: 20px;
+            font-size: 1.1rem;
             cursor: pointer;
-            box-shadow: 0 4px 0 #b5885c;
+            box-shadow: 0 5px 0 #d67a00;
             transition: 0.1s;
-            margin-top: 5px;
+            margin-top: 4px;
         }
-        .stamp-btn:active { transform: translateY(4px); box-shadow: 0 0 0 #b5885c; }
+        .stamp-btn:active { transform: translateY(4px); box-shadow: 0 1px 0 #d67a00; }
 
-        /* Tonkatsu Room & Gacha */
+        /* 2D VECTOR TONKATSU-CHAN GRAPHICS */
         .tonkatsu-room {
-            background: #fdf6ee;
-            border: 2px dashed #e3d5c5;
-            border-radius: 18px;
-            padding: 15px;
+            background: linear-gradient(180deg, #fff3e0 0%, #ffe0b2 100%);
+            border: 3px solid #ffd180;
+            border-radius: 25px;
+            padding: 25px 15px 15px 15px;
             text-align: center;
-            margin-bottom: 15px;
-            min-height: 120px;
-        }
-        .piggy-avatar { font-size: 3rem; animation: bounce 2s infinite ease-in-out; }
-        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
-        .item-tag {
-            display: inline-block;
-            background: #fff;
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 0.75rem;
-            margin: 3px;
-            border: 1px solid #e3d5c5;
+            margin-bottom: 12px;
+            position: relative;
+            box-shadow: inset 0 4px 10px rgba(255,255,255,0.8);
+            transition: background 0.3s;
         }
 
-        /* Quest Board (Drag & Drop) */
+        .tonkatsu-room.danger-room {
+            background: linear-gradient(180deg, #574b47 0%, #3a302e 100%) !important;
+            border-color: #2b2220 !important;
+        }
+
+        .plate-base {
+            width: 170px;
+            height: 50px;
+            background: #ffffff;
+            border-radius: 50%;
+            margin: 0 auto;
+            position: relative;
+            box-shadow: 0 8px 0 #e2d2be, inset 0 3px 0 #f0e6d8, 0 10px 15px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid #f2e4d3;
+        }
+
+        .cabbage-bed {
+            width: 140px;
+            height: 35px;
+            background: #c7f9cc;
+            border-radius: 50%;
+            position: absolute;
+            top: -12px;
+            border: 2px dashed #80ed99;
+            box-shadow: inset 0 2px 4px #57cc99;
+        }
+
+        .tonkatsu-character {
+            width: 125px;
+            height: 85px;
+            background: linear-gradient(145deg, #f39c12 0%, #d35400 100%);
+            border-radius: 40px 45px 30px 35px;
+            position: absolute;
+            top: -68px;
+            box-shadow: inset 0 -6px 0 #962d00, 0 6px 12px rgba(138, 43, 6, 0.2);
+            cursor: pointer;
+            animation: breathe 2.5s infinite ease-in-out;
+            transition: all 0.3s;
+            border: 3px solid #f39c12;
+        }
+
+        /* Danger State: ชิ้นหมูเกรียม 2D */
+        .tonkatsu-character.burnt-state {
+            background: linear-gradient(145deg, #3d3535 0%, #1f1818 100%) !important;
+            border-color: #120c0c !important;
+            box-shadow: inset 0 -6px 0 #000 !important;
+            animation: burntShake 0.4s infinite ease-in-out !important;
+        }
+        @keyframes burntShake { 
+            0%, 100% { transform: translateY(0) rotate(0deg); } 
+            25% { transform: translateY(-2px) rotate(-3deg); } 
+            75% { transform: translateY(2px) rotate(3deg); } 
+        }
+
+        /* ควันไฟไหม้เกรียม 2D */
+        .smoke-puff {
+            display: none;
+            position: absolute;
+            top: -30px;
+            left: 42px;
+            animation: smokeRise 1.5s infinite ease-out;
+            z-index: 10;
+        }
+        .burnt-state .smoke-puff { display: block; }
+        @keyframes smokeRise { 
+            0% { opacity: 0; transform: translateY(0) scale(0.6); } 
+            50% { opacity: 0.8; } 
+            100% { opacity: 0; transform: translateY(-22px) scale(1.2); } 
+        }
+
+        .panko-flakes {
+            position: absolute; width: 100%; height: 100%; top:0; left:0; border-radius: inherit;
+            background-image: radial-gradient(#ffe066 15%, transparent 20%), radial-gradient(#f4a261 15%, transparent 20%);
+            background-size: 16px 16px, 22px 22px; opacity: 0.85;
+        }
+
+        .sauce-drizzle {
+            position: absolute; width: 85px; height: 40px; top: 10px; left: 18px;
+            background: #5c1d06; border-radius: 12px; opacity: 0.9; transform: rotate(-8deg);
+        }
+
+        .ear-left, .ear-right {
+            width: 22px; height: 22px; background: #e67e22; position: absolute; top: -8px;
+            border-radius: 8px 16px 4px 12px; border: 2px solid #b05309;
+        }
+        .ear-left { left: 14px; transform: rotate(-18deg); }
+        .ear-right { right: 14px; transform: rotate(18deg) scaleX(-1); }
+
+        .face-eyes { display: flex; justify-content: space-between; width: 48px; position: absolute; top: 36px; left: 38px; z-index: 5; }
+        .eye { width: 7px; height: 9px; background: #2b1810; border-radius: 50%; box-shadow: 0 0 0 1px #fff; }
+        .cheeks { display: flex; justify-content: space-between; width: 66px; position: absolute; top: 43px; left: 29px; z-index: 5; }
+        .cheek { width: 12px; height: 7px; background: #ff758f; border-radius: 50%; opacity: 0.85; }
+
+        .snout {
+            width: 24px; height: 16px; background: #ffb5a7; border-radius: 12px;
+            position: absolute; top: 40px; left: 50px; border: 2px solid #f87171;
+            display: flex; justify-content: center; align-items: center; gap: 4px; z-index: 5;
+        }
+        .nostril { width: 3px; height: 5px; background: #e63946; border-radius: 2px; }
+
+        @keyframes breathe { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+
+        .item-tag { display: inline-block; background: #fff; padding: 5px 12px; border-radius: 15px; font-size: 0.78rem; margin: 3px; border: 2px solid #ffe0b2; color: #7a5c3e; }
+
+        /* Quest List */
         .quest-list { display: flex; flex-direction: column; gap: 8px; }
         .quest-card {
-            background: #fff;
-            border: 2px solid #ede4d8;
-            padding: 10px 14px;
-            border-radius: 12px;
-            cursor: grab;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.85rem;
-            touch-action: none;
+            background: #fff; border: 2px solid #f5dfcb; padding: 10px 14px;
+            border-radius: 16px; cursor: pointer; display: flex; justify-content: space-between;
+            align-items: center; font-size: 0.85rem; box-shadow: 0 3px 0 #f5dfcb; color: #6b533e;
         }
-        .quest-card.dragging { opacity: 0.5; background: #faf4ed; }
+        .quest-card.completed { background: #e8f5e9; border-color: #a5d6a7; box-shadow: 0 3px 0 #a5d6a7; opacity: 0.8; }
+        .quest-reward { color: #ff9f1c; font-weight: 500; }
+
+        .floating-text {
+            position: absolute; color: #ff6b6b; font-size: 1.1rem; font-weight: 500;
+            animation: floatUp 1s forwards ease-out; pointer-events: none; z-index: 100;
+        }
+        @keyframes floatUp { 0% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; transform: translateY(-40px); } }
     </style>
 </head>
 <body>
@@ -204,13 +374,36 @@
     <!-- Top Bar -->
     <div class="top-bar">
         <h1 class="app-title">minnatsu pocket diary</h1>
-        <div class="status-badge">🪙 <span id="coin-txt">0</span> coins</div>
-        <div class="bgm-btn" onclick="toggleBGM()" id="bgm-txt">📻 bgm: off</div>
+        <div class="status-badge">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#ff9f1c"><circle cx="12" cy="12" r="10"/><path d="M12 6v12M9 9h6M9 15h6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+            <span id="coin-txt">0</span> coins
+        </div>
+        <div class="bgm-btn" onclick="toggleBGM()" id="bgm-txt">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#825c38" stroke-width="2" stroke-linecap="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+            bgm: off
+        </div>
+    </div>
+
+    <!-- EXP Bar -->
+    <div class="exp-zone">
+        <span>lv.<span id="level-txt">1</span></span>
+        <div class="exp-bar-outer">
+            <div class="exp-bar-inner" id="exp-fill"></div>
+        </div>
+        <span><span id="exp-txt">0</span>/100 exp</span>
     </div>
 
     <!-- Minnatsu Dialogue -->
     <div class="minnatsu-box">
-        <div class="avatar-img">👧🏻</div>
+        <div class="avatar-img">
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+                <circle cx="18" cy="18" r="16" fill="#ffd8be"/>
+                <path d="M9 16C9 10 13 7 18 7C23 7 27 10 27 16" stroke="#6b4423" stroke-width="3" stroke-linecap="round"/>
+                <circle cx="13" cy="19" r="2" fill="#4a2e18"/><circle cx="23" cy="19" r="2" fill="#4a2e18"/>
+                <path d="M16 23C16 23 17 25 18 25C19 25 20 23 20 23" stroke="#e07a5f" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="10" cy="21" r="3" fill="#ff9ebb" opacity="0.6"/><circle cx="26" cy="21" r="3" fill="#ff9ebb" opacity="0.6"/>
+            </svg>
+        </div>
         <div class="speech-bubble" id="speech-txt">
             こんにちは ! minnatsu มาแล้วงับ ˖Ი𐑼⋆
         </div>
@@ -220,7 +413,7 @@
     <div class="nav-grid">
         <div class="nav-item active" onclick="switchNav('entry')" id="nav-entry">fast entry</div>
         <div class="nav-item" onclick="switchNav('room')" id="nav-room">piggy room</div>
-        <div class="nav-item" onclick="switchNav('quests')" id="nav-quests">quest board</div>
+        <div class="nav-item" onclick="switchNav('quests')" id="nav-quests">daily quests</div>
         <div class="nav-item" onclick="switchNav('dashboard')" id="nav-dashboard">dashboard</div>
     </div>
 
@@ -233,84 +426,176 @@
         </div>
 
         <div class="form-group">
+            <div class="type-selector">
+                <div class="type-btn active-exp" id="btn-expense" onclick="setType('expense')">รายจ่าย</div>
+                <div class="type-btn" id="btn-income" onclick="setType('income')">รายรับ</div>
+            </div>
+
             <input type="number" id="val-amount" class="amount-field" placeholder="0.00" autofocus>
             <input type="date" id="val-date" class="input-field">
-            <input type="text" id="val-note" class="input-field" placeholder="note (e.g. พะโล้, เน็ตฟลิก)..." oninput="autoPredictCat()">
+            <input type="text" id="val-note" class="input-field" placeholder="note (e.g. พะโล้, เงินเดือน)..." oninput="autoPredictCat()">
             
             <select id="val-category" class="input-field">
                 <option value="กิน">🥕 กิน </option>
                 <option value="พะโล้">🚌 พะโล้</option>
                 <option value="ต้วนถั่ว">🛵 ต้วนถั่ว</option>
-                <option value="เมื่อเป็นแม่แมว">🐈🐈‍⬛💘 เมื่อเป็นแม่แมว</option>
+                <option value="เมื่อเป็นแม่แมว">🐈‍⬛ เมื่อเป็นแม่แมว</option>
                 <option value="เน็ตฟลิก/สปตฟ">🎧 เน็ตฟลิก/สปตฟ</option>
                 <option value="takecare">💉 takecare</option>
                 <option value="wishlist">🪄 wish list</option>
                 <option value="ใช้จ่าย">🧺 ใช้จ่าย</option>
             </select>
 
-            <button class="stamp-btn" onclick="saveRecord()">stamp! 💮</button>
+            <button class="stamp-btn" onclick="saveRecord()">stamp!</button>
         </div>
     </div>
 
-    <!-- SCREEN 2: Tonkatsu Room & Gacha -->
+    <!-- SCREEN 2: Tonkatsu Room -->
     <div class="view-screen" id="view-room">
-        <div class="tonkatsu-room">
-            <div class="piggy-avatar">🐖</div>
-            <div style="font-size: 0.85rem; font-weight: 600; margin-top: 5px;">tonkatsu-chan's room</div>
+        <div class="tonkatsu-room" id="room-box">
+            <div style="height: 70px;"></div>
+            <div class="plate-base">
+                <div class="cabbage-bed"></div>
+                <div class="tonkatsu-character" id="tonkatsu-pig" onclick="pokePiggy(event)">
+                    <!-- ควันไฟไหม้ 2D Vector -->
+                    <div class="smoke-puff">
+                        <svg width="40" height="30" viewBox="0 0 40 30" fill="none">
+                            <circle cx="12" cy="18" r="8" fill="#d6ccc2" opacity="0.8"/>
+                            <circle cx="24" cy="12" r="10" fill="#e3d5ca" opacity="0.8"/>
+                            <circle cx="32" cy="20" r="6" fill="#d6ccc2" opacity="0.8"/>
+                        </svg>
+                    </div>
+                    <div class="panko-flakes"></div>
+                    <div class="sauce-drizzle"></div>
+                    <div class="ear-left"></div><div class="ear-right"></div>
+                    <div class="face-eyes"><div class="eye"></div><div class="eye"></div></div>
+                    <div class="cheeks"><div class="cheek"></div><div class="cheek"></div></div>
+                    <div class="snout"><div class="nostril"></div><div class="nostril"></div></div>
+                </div>
+            </div>
+            <div style="font-size: 0.88rem; color: #8a5a29; margin-top: 15px;">tonkatsu-chan's room</div>
             <div id="room-items" style="margin-top: 8px;">
-                <span class="item-tag">🌿 พรมหญ้าพาสเทล</span>
+                <span class="item-tag">พรมหญ้าพาสเทล</span>
             </div>
         </div>
-        <button class="stamp-btn" style="width:100%;" onclick="spinGacha()">หมุนกาชาปอง (30 coins) ✨</button>
+
+        <div style="display: flex; gap: 8px; margin-bottom: 8px;">
+            <button class="stamp-btn" style="flex:1; background: #2a9d8f; border-color: #1e7066; box-shadow: 0 4px 0 #185a52;" onclick="spinGacha()">หมุนกาชาปอง (30 coins)</button>
+            <button class="stamp-btn" style="background: #e63946; border-color: #b71c1c; box-shadow: 0 4px 0 #8b0000; font-size: 0.85rem;" onclick="toggleDangerPreview()">preview danger</button>
+        </div>
     </div>
 
-    <!-- SCREEN 3: Quest Board -->
+    <!-- SCREEN 3: Daily Quest System -->
     <div class="view-screen" id="view-quests">
-        <p style="font-size: 0.8rem; margin-top:0;">(ลากสลับลำดับความสำคัญเป้าหมายออมเงินได้เลยจ้ะ)</p>
-        <div class="quest-list" id="quest-container">
-            <div class="quest-card" draggable="true"><span> เมื่อเป็นแม่แมวต้องซื้อ</span><b>2,500฿</b></div>
-            <div class="quest-card" draggable="true"><span> เติมฝัน</span><b>5,000฿</b></div>
-            <div class="quest-card" draggable="true"><span> เพื่อพะโล้</span><b>1,000฿</b></div>
+        <p style="font-size: 0.8rem; margin-top:0; color: #a07850;">(ค่อยๆ ทำเควสประจำวันเพื่อเก็บ Coins และอัปเลเวลกันงับ!)</p>
+        <div class="quest-list">
+            <div class="quest-card" id="q1" onclick="claimQuest(1, 10)">
+                <span>บันทึกรายการแรกของวัน</span>
+                <span class="quest-reward">+10 coins</span>
+            </div>
+            <div class="quest-card" id="q2" onclick="claimQuest(2, 15)">
+                <span>โอนเงินออมใส่ tonkatsu-chan</span>
+                <span class="quest-reward">+15 coins</span>
+            </div>
+            <div class="quest-card" id="q3" onclick="claimQuest(3, 20)">
+                <span>บันทึกหมวดแม่แมวหรือพะโล้</span>
+                <span class="quest-reward">+20 coins</span>
+            </div>
         </div>
     </div>
 
     <!-- SCREEN 4: Dashboard -->
     <div class="view-screen" id="view-dashboard">
         <canvas id="expenseChart" style="max-height: 200px; margin-bottom: 15px;"></canvas>
-        <button class="stamp-btn" style="width:100%; background:#8fa082; box-shadow:0 4px 0 #6d7d61;" onclick="exportBackup()">save point (backup data) 💾</button>
+        <button class="stamp-btn" style="width:100%; background:#8fa082; border-color: #6a7a5d; box-shadow:0 5px 0 #526147;" onclick="exportBackup()">save point (backup data)</button>
     </div>
 </div>
 
 <audio id="bgm-player" loop src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3"></audio>
 
 <script>
-    // URL ของน้องสาวเองจ้ะ
     const GAS_URL = "https://script.google.com/macros/s/AKfycbwGJX0Xw93UzUyAOEePWmNiAmRJdvzimIAWMKhD18ZFCgE2ax0xTBDFHfJOZ_nDsACjEQ/exec";
 
     let activePocket = 'min';
+    let transactionType = 'expense';
+    let isPreviewDanger = false;
     let coins = localStorage.getItem('mn_coins') ? parseInt(localStorage.getItem('mn_coins')) : 0;
-    let inventory = JSON.parse(localStorage.getItem('mn_inventory') || '["🌿 พรมหญ้าพาสเทล"]');
+    let exp = localStorage.getItem('mn_exp') ? parseInt(localStorage.getItem('mn_exp')) : 0;
+    let level = localStorage.getItem('mn_level') ? parseInt(localStorage.getItem('mn_level')) : 1;
+    let totalIncome = localStorage.getItem('mn_income') ? parseFloat(localStorage.getItem('mn_income')) : 0;
+    let totalExpense = localStorage.getItem('mn_expense') ? parseFloat(localStorage.getItem('mn_expense')) : 0;
+    let inventory = JSON.parse(localStorage.getItem('mn_inventory') || '["พรมหญ้าพาสเทล"]');
     let isBgmPlaying = false;
 
-    // Set Default Date
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    function playBeep(freq = 440, type = 'sine', duration = 0.1) {
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type; osc.frequency.value = freq;
+        gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
+        osc.connect(gain); gain.connect(audioCtx.destination);
+        osc.start(); osc.stop(audioCtx.currentTime + duration);
+    }
+
     document.getElementById('val-date').valueAsDate = new Date();
-    document.getElementById('coin-txt').innerText = coins;
+    updateUI();
+
+    function updateUI() {
+        document.getElementById('coin-txt').innerText = coins;
+        document.getElementById('level-txt').innerText = level;
+        document.getElementById('exp-txt').innerText = exp;
+        document.getElementById('exp-fill').style.width = (exp % 100) + '%';
+    }
+
+    function checkBudgetStatus() {
+        const pig = document.getElementById('tonkatsu-pig');
+        const room = document.getElementById('room-box');
+
+        if(isPreviewDanger || (totalIncome > 0 && totalExpense > totalIncome)) {
+            pig.classList.add('burnt-state');
+            room.classList.add('danger-room');
+            speak("โอ๊ยย ! คัตสึจังเกรียมไปหมดแล้วฮะ“");
+        } else if(totalIncome > 0 && totalExpense >= totalIncome * 0.7) {
+            pig.classList.remove('burnt-state');
+            room.classList.remove('danger-room');
+            speak("งื้ออ... ตัว tonkatsu-chan เริ่มเหี่ยวแล้วน้า รายจ่ายใกล้เกินรายรับแล้วนะงับ! 💦");
+        } else {
+            pig.classList.remove('burnt-state');
+            room.classList.remove('danger-room');
+        }
+    }
+
+    function toggleDangerPreview() {
+        isPreviewDanger = !isPreviewDanger;
+        playBeep(isPreviewDanger ? 250 : 600, 'sawtooth');
+        checkBudgetStatus();
+    }
+
+    function setType(type) {
+        transactionType = type;
+        document.getElementById('btn-expense').className = type === 'expense' ? 'type-btn active-exp' : 'type-btn';
+        document.getElementById('btn-income').className = type === 'income' ? 'type-btn active-inc' : 'type-btn';
+    }
 
     function speak(text) { document.getElementById('speech-txt').innerText = text; }
 
     function toggleBGM() {
+        playBeep(600, 'triangle');
         const audio = document.getElementById('bgm-player');
         if(isBgmPlaying) {
             audio.pause();
-            document.getElementById('bgm-txt').innerText = "📻 bgm: off";
+            document.getElementById('bgm-txt').innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#825c38" stroke-width="2" stroke-linecap="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg> bgm: off`;
         } else {
             audio.play().catch(() => {});
-            document.getElementById('bgm-txt').innerText = "📻 bgm: on 🎵";
+            document.getElementById('bgm-txt').innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#825c38" stroke-width="2" stroke-linecap="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg> bgm: on`;
         }
         isBgmPlaying = !isBgmPlaying;
     }
 
     function switchNav(screen) {
+        playBeep(520, 'sine');
         document.querySelectorAll('.nav-item').forEach(e => e.classList.remove('active'));
         document.querySelectorAll('.view-screen').forEach(e => e.classList.remove('active'));
 
@@ -318,12 +603,12 @@
         document.getElementById('view-' + screen).classList.add('active');
 
         if(screen === 'room') {
-            speak("ยินดีต้อนรับสู่ห้องของ tonkatsu-chan มาหมุนกาชากัน !");
+            checkBudgetStatus();
             renderRoom();
         } else if(screen === 'quests') {
-            speak("กระดานเป้าหมายออมเงิน! แตะค้างแล้วลากสลับลำดับได้เลย");
+            speak("กระดานเควสประจำวัน! ค่อยๆ ทำเพื่อเก็บ Coins กันงับ ✨");
         } else if(screen === 'dashboard') {
-            speak("ใช้จ่ายอะไร");
+            speak("สรุปภาพรวมการเงินมาแล้วงับ!");
             renderChart();
         } else {
             speak("พร้อมจดบันทึกแล้วงับ");
@@ -331,13 +616,13 @@
     }
 
     function setPocket(pkt) {
+        playBeep(480, 'square');
         activePocket = pkt;
         document.querySelectorAll('.pocket-btn').forEach(e => e.classList.remove('active'));
-        
         let id = pkt === 'tonkatsu-chan' ? 'p-tonkatsu' : 'p-' + pkt;
         document.getElementById(id).classList.add('active');
 
-        if(pkt === 'tonkatsu-chan') speak("กรุ๊งกริ๊ง เงินเข้า tonkatsu-chan แล้ว +15 coins 🐖✨");
+        if(pkt === 'tonkatsu-chan') speak("กรุ๊งกริ๊ง เงินเข้า tonkatsu-chan แล้ว +15 coins ✨");
         else speak(`สลับ ${pkt} pocket เรียบร้อย`);
     }
 
@@ -345,46 +630,74 @@
         let note = document.getElementById('val-note').value.toLowerCase();
         let catSelect = document.getElementById('val-category');
 
-        if(note.includes('พะโล้')) { catSelect.value = 'พะโล้'; speak("จับคู่หมวด 🚌 พะโล้ให้แล้วงับ"); }
-        else if(note.includes('แมว')) { catSelect.value = 'เมื่อเป็นแม่แมว'; speak("เลือก 🐈🐈‍⬛💘 เมื่อเป็นแม่แมวแล้วงับ "); }
-        else if(note.includes('เน็ตฟลิก') || note.includes('netflix')) { catSelect.value = 'เน็ตฟลิก/สปตฟ'; speak("เลือก 🎧 เน็ตฟลิก/สปตฟให้แล้วงับ"); }
+        if(note.includes('พะโล้')) { catSelect.value = 'พะโล้'; speak("จับคู่หมวด พะโล้ ให้แล้วงับ"); playBeep(880, 'sine'); }
+        else if(note.includes('แมว')) { catSelect.value = 'เมื่อเป็นแม่แมว'; speak("เลือก เมื่อเป็นแม่แมว แล้วงับ "); playBeep(880, 'sine'); }
+        else if(note.includes('เน็ตฟลิก') || note.includes('netflix')) { catSelect.value = 'เน็ตฟลิก/สปตฟ'; speak("เลือก เน็ตฟลิก/สปตฟ ให้แล้วงับ"); playBeep(880, 'sine'); }
         else if(note.includes('ต้วน')) { catSelect.value = 'ต้วนถั่ว'; }
         else if(note.includes('ข้าว') || note.includes('กิน')) { catSelect.value = 'กิน'; }
     }
 
+    function pokePiggy(e) {
+        if(document.getElementById('tonkatsu-pig').classList.contains('burnt-state')) {
+            playBeep(220, 'sawtooth');
+            speak("โอ๊ยย ! คัตสึจังเกรียมไปหมดแล้วฮะ“");
+            showFloatingText("ไหม้หมดแล้ว!", e.clientX, e.clientY);
+        } else {
+            playBeep(750, 'triangle');
+            speak("อู๊ดดด~ tonkatsu-chan ชิ้นหมูทอดชุ่มซอสดุ๊กดิ๊กงับ! ✨");
+            showFloatingText("กรอบฉ่ำ!", e.clientX, e.clientY);
+        }
+    }
+
+    function showFloatingText(text, x, y) {
+        const el = document.createElement('div');
+        el.className = 'floating-text';
+        el.innerText = text;
+        el.style.left = (x || window.innerWidth / 2) + 'px';
+        el.style.top = (y || window.innerHeight / 2) + 'px';
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 1000);
+    }
+
     async function saveRecord() {
-        const amt = document.getElementById('val-amount').value;
+        const amt = parseFloat(document.getElementById('val-amount').value);
         const dt = document.getElementById('val-date').value;
         const note = document.getElementById('val-note').value;
         const cat = document.getElementById('val-category').value;
 
-        if(!amt) { speak("อย่าลืมจำนวนนะงับ"); return; }
+        if(!amt) { speak("อย่าลืมใส่จำนวนเงินนะงับ"); playBeep(200, 'sawtooth'); return; }
 
-        speak("อัปเดต sheets แล้วงับ 📬");
+        playBeep(800, 'sine', 0.2);
 
-        // 🔥 แก้ไขตรงนี้! ส่งข้อมูลเป็น JSON รูปแบบ text/plain เพื่อให้ตรงกับโค้ดฝั่ง Google Sheets 100% 🔥
-        const data = { 
-            pocket: activePocket, 
-            amount: amt, 
-            date: dt, 
-            category: cat, 
-            note: note 
-        };
+        if(transactionType === 'income') totalIncome += amt;
+        else totalExpense += amt;
+
+        localStorage.setItem('mn_income', totalIncome);
+        localStorage.setItem('mn_expense', totalExpense);
+
+        const data = { pocket: activePocket, type: transactionType, amount: amt, date: dt, category: cat, note: note };
 
         try {
             if(GAS_URL) {
                 await fetch(GAS_URL, { 
                     method: 'POST', 
-                    mode: 'no-cors', // บังคับข้ามหน้าจอแจ้งเตือน CORS
-                    headers: { 'Content-Type': 'text/plain;charset=utf-8' }, // ส่งเป็น text เพื่อไม่ให้โดนบล็อก
-                    body: JSON.stringify(data) // รูปแบบ JSON ที่โค้ดหลังบ้านของหนูรอรับเป๊ะๆ
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify(data)
                 });
             }
             
             let reward = activePocket === 'tonkatsu-chan' ? 15 : 10;
-            coins += reward;
+            coins += reward; exp += 20;
+            if(exp >= 100) { level++; exp = 0; speak(`🎉 LEVEL UP! ตอนนี้เลเวล ${level} แล้วงับ!`); }
+
             localStorage.setItem('mn_coins', coins);
-            document.getElementById('coin-txt').innerText = coins;
+            localStorage.setItem('mn_exp', exp);
+            localStorage.setItem('mn_level', level);
+            updateUI();
+            checkBudgetStatus();
+
+            showFloatingText(`+${reward} coins`, window.innerWidth / 2, window.innerHeight / 2);
 
             document.getElementById('val-amount').value = '';
             document.getElementById('val-note').value = '';
@@ -394,21 +707,33 @@
         }
     }
 
-    // Gacha System
-    const gachaPool = ["🪞 กระจกวิเศษ", "🎨 จานสี", "🧸 พี่หมีตัวโต", "🍵 ชุดชงมัทฉะเกรดพิธีเกิน", "🪴 ต้นไม้ฟอกอากาศ", "🛋️ โซฟานู่มมมนุ่ม"];
+    function claimQuest(id, rewardCoins) {
+        const qCard = document.getElementById('q' + id);
+        if(qCard.classList.contains('completed')) return;
+
+        playBeep(900, 'sine', 0.2);
+        qCard.classList.add('completed');
+        coins += rewardCoins;
+        localStorage.setItem('mn_coins', coins);
+        updateUI();
+        speak(`เย้! ทำเควสสำเร็จ รับรางวัล +${rewardCoins} coins เรียบร้อยจ้ะ! ✨`);
+    }
+
+    const gachaPool = ["กระจกวิเศษ", "จานสี", "พี่หมีตัวโต", "ชุดชงมัทฉะเกรดพิธีเกิน", "ต้นไม้ฟอกอากาศ", "โซฟานู่มมมนุ่ม", "โบว์ทงคัตสึ", "มงกุฎหมูจิ๋ว"];
     function spinGacha() {
-        if(coins < 30) { speak("งื้ออ coins ไม่พอหมุนกาชาปอง จดบันทึกเพิ่มก่อนน้าา"); return; }
+        if(coins < 30) { speak("งื้ออ coins ไม่พอหมุนกาชาปอง จดบันทึกเพิ่มก่อนน้าา"); playBeep(200, 'sawtooth'); return; }
         
+        playBeep(900, 'sine', 0.3);
         coins -= 30;
         localStorage.setItem('mn_coins', coins);
-        document.getElementById('coin-txt').innerText = coins;
 
         let prize = gachaPool[Math.floor(Math.random() * gachaPool.length)];
         inventory.push(prize);
         localStorage.setItem('mn_inventory', JSON.stringify(inventory));
         
+        updateUI();
         renderRoom();
-        speak(`เย้! : ${prize} ไปแต่งห้องกันน !`);
+        speak(`เย้! ได้รับ : ${prize} ไปแต่งห้องกันน !`);
     }
 
     function renderRoom() {
@@ -417,54 +742,6 @@
         document.getElementById('room-items').innerHTML = html;
     }
 
-    // Quest Drag & Drop (รองรับทั้ง เมาส์ และ หน้าจอมือถือ/แท็บเล็ต)
-    const questContainer = document.getElementById('quest-container');
-    let draggedItem = null;
-
-    questContainer.addEventListener('dragstart', (e) => {
-        draggedItem = e.target;
-        e.target.classList.add('dragging');
-    });
-    questContainer.addEventListener('dragend', (e) => {
-        e.target.classList.remove('dragging');
-    });
-    questContainer.addEventListener('dragover', (e) => {
-        e.preventDefault();
-        const afterElement = getDragAfterElement(questContainer, e.clientY);
-        if (afterElement == null) {
-            questContainer.appendChild(draggedItem);
-        } else {
-            questContainer.insertBefore(draggedItem, afterElement);
-        }
-    });
-
-    // ระบบ Touch สำหรับมือถือ
-    questContainer.addEventListener('touchmove', (e) => {
-        const touch = e.touches[0];
-        const target = document.elementFromPoint(touch.clientX, touch.clientY);
-        const card = target ? target.closest('.quest-card') : null;
-        if (card && card !== draggedItem) {
-            const afterElement = getDragAfterElement(questContainer, touch.clientY);
-            if (afterElement == null) {
-                questContainer.appendChild(draggedItem);
-            } else {
-                questContainer.insertBefore(draggedItem, afterElement);
-            }
-        }
-    });
-
-    function getDragAfterElement(container, y) {
-        const draggableElements = [...container.querySelectorAll('.quest-card:not(.dragging)')];
-        return draggableElements.reduce((closest, child) => {
-            const box = child.getBoundingClientRect();
-            const offset = y - box.top - box.height / 2;
-            if (offset < 0 && offset > closest.offset) {
-                return { offset: offset, element: child };
-            } else { return closest; }
-        }, { offset: Number.NEGATIVE_INFINITY }).element;
-    }
-
-    // Chart.js Dashboard
     let chartInstance = null;
     function renderChart() {
         const ctx = document.getElementById('expenseChart').getContext('2d');
@@ -473,10 +750,10 @@
         chartInstance = new Chart(ctx, {
             type: 'doughnut',
             data: {
-                labels: ['🥕 กิน', '🚌 พะโล้', '🐈🐈‍⬛💘 เมื่อเป็นแม่แมว', '🪄 wish list'],
+                labels: ['กิน', 'พะโล้', 'แม่แมว', 'wish list'],
                 datasets: [{
                     data: [40, 25, 20, 15],
-                    backgroundColor: ['#e8ae68', '#8fa082', '#c9a0dc', '#f1a7a6']
+                    backgroundColor: ['#ffb703', '#8fa082', '#ff85a1', '#9d4edd']
                 }]
             },
             options: { plugins: { legend: { position: 'bottom' } } }
@@ -491,7 +768,7 @@
         document.body.appendChild(downloadAnchor);
         downloadAnchor.click();
         downloadAnchor.remove();
-        speak("Save Point !💾");
+        speak("Save Point !");
     }
 </script>
 </body>
