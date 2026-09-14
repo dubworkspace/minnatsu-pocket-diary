@@ -10,12 +10,12 @@
         * { box-sizing: border-box; font-family: 'Mitr', sans-serif; text-transform: lowercase; font-weight: 300; }
         
         body {
-            background-color: #fff8e7;
-            background-image: radial-gradient(#f7e5c8 15%, transparent 16%);
-            background-size: 20px 20px;
+            background-color: #fffdf0;
+            background-image: radial-gradient(#f7e8cf 18%, transparent 19%);
+            background-size: 24px 24px;
             color: #5c4b37;
             margin: 0;
-            padding: 12px;
+            padding: 20px 15px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -23,29 +23,29 @@
         }
 
         .game-card {
-            background: #fffdf9;
+            background: #ffffff;
             width: 100%;
-            max-width: 420px;
-            border-radius: 35px;
-            box-shadow: 0 15px 35px rgba(212, 175, 126, 0.3);
-            border: 4px solid #ffeed6;
+            max-width: 440px;
+            border-radius: 38px;
+            box-shadow: 0 18px 40px rgba(212, 175, 126, 0.25);
+            border: 4px solid #ffebd0;
             overflow: hidden;
             position: relative;
         }
 
         /* Top Bar */
         .top-bar {
-            background-color: #ffe8cd;
-            padding: 12px 18px;
+            background-color: #ffe8cc;
+            padding: 16px 22px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 3px solid #f2d4b2;
+            border-bottom: 3px solid #f3d7b7;
         }
-        .app-title { font-size: 1.05rem; font-weight: 400; color: #825c38; margin: 0; }
+        .app-title { font-size: 1.1rem; font-weight: 400; color: #7a532d; margin: 0; }
         .status-badge {
             background: #fff;
-            padding: 4px 12px;
+            padding: 5px 14px;
             border-radius: 20px;
             font-size: 0.85rem;
             color: #d97724;
@@ -60,61 +60,62 @@
             font-size: 0.82rem; 
             user-select: none; 
             background: #fff; 
-            padding: 4px 10px; 
-            border-radius: 15px; 
+            padding: 5px 12px; 
+            border-radius: 16px; 
             border: 2px solid #ffeedb;
             display: flex;
             align-items: center;
-            gap: 5px;
-            color: #825c38;
+            gap: 6px;
+            color: #7a532d;
+            box-shadow: 0 2px 0 #f2d8c2;
         }
 
         /* EXP Bar & Level */
         .exp-zone {
-            background: #fff3e3;
-            padding: 6px 18px;
+            background: #fff5e6;
+            padding: 8px 22px;
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-size: 0.75rem;
-            color: #a07850;
+            gap: 12px;
+            font-size: 0.78rem;
+            color: #9c7349;
         }
         .exp-bar-outer {
             flex: 1;
-            height: 10px;
-            background: #eed8c3;
+            height: 12px;
+            background: #ead2bd;
             border-radius: 10px;
             overflow: hidden;
-            border: 1px solid #dfc3aa;
+            border: 1px solid #dcbfa6;
         }
         .exp-bar-inner {
             height: 100%;
             width: 30%;
-            background: linear-gradient(90deg, #ffd166, #f78c6b);
+            background: linear-gradient(90deg, #ffd166, #ff85a1);
             border-radius: 10px;
             transition: width 0.3s;
         }
 
-        /* Minnatsu Character Zone (2D Vector Character) */
+        /* 👧🏻 Cute Minnatsu Character Zone */
         .minnatsu-box {
-            background: #fff5e6;
-            padding: 12px 15px;
+            background: #fff8f0;
+            padding: 16px 20px;
             display: flex;
             align-items: center;
-            gap: 12px;
-            border-bottom: 3px dashed #f0d8c0;
+            gap: 14px;
+            border-bottom: 3px dashed #ebd8c5;
             position: relative;
         }
         .avatar-img {
-            width: 52px;
-            height: 52px;
-            background: #ffe3c4;
+            width: 58px;
+            height: 58px;
+            background: #ffe8d6;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
             border: 3px solid #fff;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.06);
             flex-shrink: 0;
             animation: float 3s ease-in-out infinite;
         }
@@ -122,13 +123,13 @@
 
         .speech-bubble {
             background: #fff;
-            padding: 10px 14px;
-            border-radius: 18px;
-            font-size: 0.83rem;
-            color: #6b533e;
+            padding: 12px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: #634f3d;
             border: 2px solid #f2d8c2;
             box-shadow: 0 4px 0 #f0d5be;
-            line-height: 1.35;
+            line-height: 1.4;
             position: relative;
             flex: 1;
         }
@@ -136,83 +137,83 @@
         /* Nav Grid */
         .nav-grid {
             display: flex;
-            background: #fff8ee;
-            padding: 6px;
-            gap: 6px;
-            border-bottom: 3px solid #f2d4b2;
+            background: #fffbf5;
+            padding: 8px;
+            gap: 8px;
+            border-bottom: 3px solid #f3d7b7;
         }
         .nav-item {
             flex: 1;
             text-align: center;
-            padding: 8px 2px;
-            font-size: 0.78rem;
-            color: #a38970;
+            padding: 10px 2px;
+            font-size: 0.8rem;
+            color: #9c846f;
             cursor: pointer;
-            border-radius: 15px;
+            border-radius: 16px;
             background: #fff;
-            border: 2px solid #f2e2ce;
+            border: 2px solid #f3e5d8;
             transition: 0.15s;
         }
         .nav-item.active {
             color: #fff;
-            background: #8fa082;
-            border-color: #798a6c;
-            box-shadow: 0 3px 0 #617056;
+            background: #91b88a;
+            border-color: #789c72;
+            box-shadow: 0 4px 0 #5f7d5a;
         }
 
-        /* Views */
-        .view-screen { display: none; padding: 16px; }
+        /* Screen Views */
+        .view-screen { display: none; padding: 22px; }
         .view-screen.active { display: block; }
 
         /* Pocket Selector */
-        .pocket-row { display: flex; gap: 8px; margin-bottom: 14px; }
+        .pocket-row { display: flex; gap: 10px; margin-bottom: 18px; }
         .pocket-btn {
             flex: 1;
-            padding: 8px 4px;
+            padding: 10px 6px;
             background: #fff;
-            border: 2px solid #eedecf;
-            border-radius: 16px;
-            font-size: 0.78rem;
+            border: 2px solid #eee0d3;
+            border-radius: 18px;
+            font-size: 0.8rem;
             color: #8c7158;
             cursor: pointer;
             text-align: center;
-            box-shadow: 0 3px 0 #eedecf;
+            box-shadow: 0 3px 0 #eee0d3;
             transition: 0.1s;
         }
         .pocket-btn.active {
             background: #ffaa5e;
             border-color: #e28e43;
             color: #fff;
-            box-shadow: 0 3px 0 #c7742b;
+            box-shadow: 0 4px 0 #c7742b;
         }
 
         /* Input Form */
-        .form-group { display: flex; flex-direction: column; gap: 10px; }
-        .type-selector { display: flex; gap: 10px; margin-bottom: 5px; }
+        .form-group { display: flex; flex-direction: column; gap: 14px; }
+        .type-selector { display: flex; gap: 12px; margin-bottom: 2px; }
         .type-btn {
-            flex: 1; padding: 6px; border-radius: 12px; border: 2px solid #f5dfcb;
-            background: #fff; text-align: center; font-size: 0.8rem; cursor: pointer; color: #8c7158;
+            flex: 1; padding: 8px; border-radius: 14px; border: 2px solid #f5dfcb;
+            background: #fff; text-align: center; font-size: 0.82rem; cursor: pointer; color: #8c7158;
         }
-        .type-btn.active-exp { background: #ff85a1; color: white; border-color: #e63946; }
-        .type-btn.active-inc { background: #52b788; color: white; border-color: #2d6a4f; }
+        .type-btn.active-exp { background: #ff85a1; color: white; border-color: #e63946; box-shadow: 0 3px 0 #b71c1c; }
+        .type-btn.active-inc { background: #52b788; color: white; border-color: #2d6a4f; box-shadow: 0 3px 0 #1b4332; }
 
         .amount-field {
-            font-size: 2.2rem;
+            font-size: 2.3rem;
             text-align: right;
             color: #f27a35;
             background: #fffefb;
             border: 3px solid #f5dfcb;
-            border-radius: 20px;
-            padding: 8px 15px;
+            border-radius: 22px;
+            padding: 10px 18px;
             outline: none;
             box-shadow: inset 0 3px 6px rgba(0,0,0,0.03);
         }
         .input-field {
-            padding: 10px 14px;
+            padding: 12px 16px;
             border: 2px solid #f5dfcb;
-            border-radius: 15px;
+            border-radius: 16px;
             outline: none;
-            font-size: 0.88rem;
+            font-size: 0.9rem;
             background: #fffefb;
             color: #6b533e;
         }
@@ -221,24 +222,24 @@
             background: #ff9f1c;
             color: white;
             border: 2px solid #e08300;
-            padding: 12px;
-            border-radius: 20px;
-            font-size: 1.1rem;
+            padding: 14px;
+            border-radius: 22px;
+            font-size: 1.15rem;
             cursor: pointer;
             box-shadow: 0 5px 0 #d67a00;
             transition: 0.1s;
-            margin-top: 4px;
+            margin-top: 6px;
         }
         .stamp-btn:active { transform: translateY(4px); box-shadow: 0 1px 0 #d67a00; }
 
-        /* 2D VECTOR TONKATSU-CHAN GRAPHICS */
+        /* 🍱 2D VECTOR TONKATSU-CHAN ROOM */
         .tonkatsu-room {
             background: linear-gradient(180deg, #fff3e0 0%, #ffe0b2 100%);
             border: 3px solid #ffd180;
-            border-radius: 25px;
-            padding: 25px 15px 15px 15px;
+            border-radius: 28px;
+            padding: 30px 18px 18px 18px;
             text-align: center;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
             position: relative;
             box-shadow: inset 0 4px 10px rgba(255,255,255,0.8);
             transition: background 0.3s;
@@ -250,8 +251,8 @@
         }
 
         .plate-base {
-            width: 170px;
-            height: 50px;
+            width: 180px;
+            height: 54px;
             background: #ffffff;
             border-radius: 50%;
             margin: 0 auto;
@@ -264,8 +265,8 @@
         }
 
         .cabbage-bed {
-            width: 140px;
-            height: 35px;
+            width: 150px;
+            height: 38px;
             background: #c7f9cc;
             border-radius: 50%;
             position: absolute;
@@ -275,12 +276,12 @@
         }
 
         .tonkatsu-character {
-            width: 125px;
-            height: 85px;
+            width: 130px;
+            height: 88px;
             background: linear-gradient(145deg, #f39c12 0%, #d35400 100%);
             border-radius: 40px 45px 30px 35px;
             position: absolute;
-            top: -68px;
+            top: -70px;
             box-shadow: inset 0 -6px 0 #962d00, 0 6px 12px rgba(138, 43, 6, 0.2);
             cursor: pointer;
             animation: breathe 2.5s infinite ease-in-out;
@@ -288,7 +289,7 @@
             border: 3px solid #f39c12;
         }
 
-        /* Danger State: ชิ้นหมูเกรียม 2D */
+        /* Danger State: หมูเกรียม 2D */
         .tonkatsu-character.burnt-state {
             background: linear-gradient(145deg, #3d3535 0%, #1f1818 100%) !important;
             border-color: #120c0c !important;
@@ -301,12 +302,11 @@
             75% { transform: translateY(2px) rotate(3deg); } 
         }
 
-        /* ควันไฟไหม้เกรียม 2D */
         .smoke-puff {
             display: none;
             position: absolute;
             top: -30px;
-            left: 42px;
+            left: 45px;
             animation: smokeRise 1.5s infinite ease-out;
             z-index: 10;
         }
@@ -324,7 +324,7 @@
         }
 
         .sauce-drizzle {
-            position: absolute; width: 85px; height: 40px; top: 10px; left: 18px;
+            position: absolute; width: 88px; height: 42px; top: 10px; left: 20px;
             background: #5c1d06; border-radius: 12px; opacity: 0.9; transform: rotate(-8deg);
         }
 
@@ -335,31 +335,55 @@
         .ear-left { left: 14px; transform: rotate(-18deg); }
         .ear-right { right: 14px; transform: rotate(18deg) scaleX(-1); }
 
-        .face-eyes { display: flex; justify-content: space-between; width: 48px; position: absolute; top: 36px; left: 38px; z-index: 5; }
+        .face-eyes { display: flex; justify-content: space-between; width: 48px; position: absolute; top: 36px; left: 40px; z-index: 5; }
         .eye { width: 7px; height: 9px; background: #2b1810; border-radius: 50%; box-shadow: 0 0 0 1px #fff; }
-        .cheeks { display: flex; justify-content: space-between; width: 66px; position: absolute; top: 43px; left: 29px; z-index: 5; }
+        .cheeks { display: flex; justify-content: space-between; width: 66px; position: absolute; top: 43px; left: 31px; z-index: 5; }
         .cheek { width: 12px; height: 7px; background: #ff758f; border-radius: 50%; opacity: 0.85; }
 
         .snout {
             width: 24px; height: 16px; background: #ffb5a7; border-radius: 12px;
-            position: absolute; top: 40px; left: 50px; border: 2px solid #f87171;
+            position: absolute; top: 40px; left: 52px; border: 2px solid #f87171;
             display: flex; justify-content: center; align-items: center; gap: 4px; z-index: 5;
         }
         .nostril { width: 3px; height: 5px; background: #e63946; border-radius: 2px; }
 
         @keyframes breathe { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
 
-        .item-tag { display: inline-block; background: #fff; padding: 5px 12px; border-radius: 15px; font-size: 0.78rem; margin: 3px; border: 2px solid #ffe0b2; color: #7a5c3e; }
+        .item-tag { display: inline-block; background: #fff; padding: 6px 14px; border-radius: 16px; font-size: 0.8rem; margin: 3px; border: 2px solid #ffe0b2; color: #7a5c3e; }
 
         /* Quest List */
-        .quest-list { display: flex; flex-direction: column; gap: 8px; }
+        .quest-list { display: flex; flex-direction: column; gap: 10px; }
         .quest-card {
-            background: #fff; border: 2px solid #f5dfcb; padding: 10px 14px;
-            border-radius: 16px; cursor: pointer; display: flex; justify-content: space-between;
-            align-items: center; font-size: 0.85rem; box-shadow: 0 3px 0 #f5dfcb; color: #6b533e;
+            background: #fff; border: 2px solid #f5dfcb; padding: 12px 16px;
+            border-radius: 18px; cursor: pointer; display: flex; justify-content: space-between;
+            align-items: center; font-size: 0.88rem; box-shadow: 0 3px 0 #f5dfcb; color: #6b533e;
         }
         .quest-card.completed { background: #e8f5e9; border-color: #a5d6a7; box-shadow: 0 3px 0 #a5d6a7; opacity: 0.8; }
         .quest-reward { color: #ff9f1c; font-weight: 500; }
+
+        /* 📊 Dashboard Separated Pocket Tabs & Fat Pig Status */
+        .dash-pocket-tabs { display: flex; gap: 10px; margin-bottom: 16px; }
+        .dash-tab {
+            flex: 1; padding: 8px; text-align: center; border-radius: 14px;
+            border: 2px solid #f3e5d8; background: #fff; font-size: 0.82rem; cursor: pointer; color: #8c7158;
+        }
+        .dash-tab.active { background: #ff9f1c; color: white; border-color: #d67a00; box-shadow: 0 3px 0 #b56800; }
+
+        .fat-pig-box {
+            background: #fff8f0;
+            border: 2px dashed #f2d8c2;
+            border-radius: 20px;
+            padding: 16px;
+            text-align: center;
+            margin-bottom: 18px;
+        }
+        .fat-pig-stage {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 10px 0;
+            height: 90px;
+        }
 
         .floating-text {
             position: absolute; color: #ff6b6b; font-size: 1.1rem; font-weight: 500;
@@ -379,7 +403,7 @@
             <span id="coin-txt">0</span> coins
         </div>
         <div class="bgm-btn" onclick="toggleBGM()" id="bgm-txt">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#825c38" stroke-width="2" stroke-linecap="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7a532d" stroke-width="2" stroke-linecap="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
             bgm: off
         </div>
     </div>
@@ -393,15 +417,31 @@
         <span><span id="exp-txt">0</span>/100 exp</span>
     </div>
 
-    <!-- Minnatsu Dialogue -->
+    <!-- 👧🏻 Cute Short Hair Minnatsu Character Zone -->
     <div class="minnatsu-box">
         <div class="avatar-img">
-            <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
-                <circle cx="18" cy="18" r="16" fill="#ffd8be"/>
-                <path d="M9 16C9 10 13 7 18 7C23 7 27 10 27 16" stroke="#6b4423" stroke-width="3" stroke-linecap="round"/>
-                <circle cx="13" cy="19" r="2" fill="#4a2e18"/><circle cx="23" cy="19" r="2" fill="#4a2e18"/>
-                <path d="M16 23C16 23 17 25 18 25C19 25 20 23 20 23" stroke="#e07a5f" stroke-width="2" stroke-linecap="round"/>
-                <circle cx="10" cy="21" r="3" fill="#ff9ebb" opacity="0.6"/><circle cx="26" cy="21" r="3" fill="#ff9ebb" opacity="0.6"/>
+            <svg width="42" height="42" viewBox="0 0 40 40" fill="none">
+                <!-- ใบหน้า & หู -->
+                <circle cx="20" cy="20" r="16" fill="#ffe0cf"/>
+                <circle cx="5" cy="20" r="3" fill="#ffd0bb"/>
+                <circle cx="35" cy="20" r="3" fill="#ffd0bb"/>
+                
+                <!-- ผมสั้นบ๊อบ & หน้าม้า -->
+                <path d="M6 18C6 10 11 6 20 6C29 6 34 10 34 18V24C34 26 32 27 31 25C30 23 29 20 29 18C29 12 25 8 20 8C15 8 11 12 11 18C11 20 10 23 9 25C8 27 6 26 6 24V18Z" fill="#5a3d28"/>
+                <path d="M12 13C15 15 18 15 20 13C22 15 25 15 28 13C27 10 24 8 20 8C16 8 13 10 12 13Z" fill="#422b1b"/>
+                
+                <!-- ตาโตยิ้มสดใส -->
+                <circle cx="14" cy="20" r="2.2" fill="#2d1c10"/>
+                <circle cx="26" cy="20" r="2.2" fill="#2d1c10"/>
+                <circle cx="14.8" cy="19.2" r="0.8" fill="#fff"/>
+                <circle cx="26.8" cy="19.2" r="0.8" fill="#fff"/>
+                
+                <!-- แก้มกลมอมชมพูระเรื่อ -->
+                <circle cx="11" cy="23" r="3.5" fill="#ff8ba7" opacity="0.6"/>
+                <circle cx="29" cy="23" r="3.5" fill="#ff8ba7" opacity="0.6"/>
+                
+                <!-- รอยยิ้มสดใส -->
+                <path d="M17 24C17 24 18.5 26 20 26C21.5 26 23 24 23 24" stroke="#d95d39" stroke-width="2" stroke-linecap="round"/>
             </svg>
         </div>
         <div class="speech-bubble" id="speech-txt">
@@ -457,7 +497,6 @@
             <div class="plate-base">
                 <div class="cabbage-bed"></div>
                 <div class="tonkatsu-character" id="tonkatsu-pig" onclick="pokePiggy(event)">
-                    <!-- ควันไฟไหม้ 2D Vector -->
                     <div class="smoke-puff">
                         <svg width="40" height="30" viewBox="0 0 40 30" fill="none">
                             <circle cx="12" cy="18" r="8" fill="#d6ccc2" opacity="0.8"/>
@@ -479,7 +518,7 @@
             </div>
         </div>
 
-        <div style="display: flex; gap: 8px; margin-bottom: 8px;">
+        <div style="display: flex; gap: 10px; margin-bottom: 8px;">
             <button class="stamp-btn" style="flex:1; background: #2a9d8f; border-color: #1e7066; box-shadow: 0 4px 0 #185a52;" onclick="spinGacha()">หมุนกาชาปอง (30 coins)</button>
             <button class="stamp-btn" style="background: #e63946; border-color: #b71c1c; box-shadow: 0 4px 0 #8b0000; font-size: 0.85rem;" onclick="toggleDangerPreview()">preview danger</button>
         </div>
@@ -506,7 +545,32 @@
 
     <!-- SCREEN 4: Dashboard -->
     <div class="view-screen" id="view-dashboard">
-        <canvas id="expenseChart" style="max-height: 200px; margin-bottom: 15px;"></canvas>
+        <!-- 🐖 Tonkatsu Fatness Level Box -->
+        <div class="fat-pig-box">
+            <div style="font-size: 0.85rem; color: #8a5a29; font-weight: 500;">ระดับความอ้วนท้วนของ tonkatsu-chan 🍱</div>
+            <div class="fat-pig-stage">
+                <div id="dash-fat-pig" style="transition: transform 0.4s ease;">
+                    <svg id="svg-pig-shape" width="100" height="70" viewBox="0 0 100 70">
+                        <ellipse cx="50" cy="40" rx="40" ry="25" fill="#f39c12" stroke="#d35400" stroke-width="3"/>
+                        <circle cx="35" cy="35" r="3" fill="#2b1810"/>
+                        <circle cx="65" cy="35" r="3" fill="#2b1810"/>
+                        <ellipse cx="50" cy="42" rx="8" ry="5" fill="#ffb5a7" stroke="#f87171" stroke-width="1.5"/>
+                    </svg>
+                </div>
+            </div>
+            <div style="font-size: 0.82rem; color: #b86217;">
+                ยอดเงินออมสะสม: <b id="dash-savings-val">0</b> ฿
+                <br><span id="dash-pig-status" style="font-size: 0.78rem; color: #819b78;">(ร่างสลอยด์: ต้องเพิ่มเงินออมอีกนะงับ!)</span>
+            </div>
+        </div>
+
+        <!-- 📊 Separated Pocket Tabs -->
+        <div class="dash-pocket-tabs">
+            <div class="dash-tab active" id="tab-dash-min" onclick="switchDashPocket('min')">min pocket</div>
+            <div class="dash-tab" id="tab-dash-natsu" onclick="switchDashPocket('natsu')">natsu pocket</div>
+        </div>
+
+        <canvas id="expenseChart" style="max-height: 200px; margin-bottom: 18px;"></canvas>
         <button class="stamp-btn" style="width:100%; background:#8fa082; border-color: #6a7a5d; box-shadow:0 5px 0 #526147;" onclick="exportBackup()">save point (backup data)</button>
     </div>
 </div>
@@ -517,13 +581,16 @@
     const GAS_URL = "https://script.google.com/macros/s/AKfycbwGJX0Xw93UzUyAOEePWmNiAmRJdvzimIAWMKhD18ZFCgE2ax0xTBDFHfJOZ_nDsACjEQ/exec";
 
     let activePocket = 'min';
+    let dashActivePocket = 'min';
     let transactionType = 'expense';
     let isPreviewDanger = false;
+
     let coins = localStorage.getItem('mn_coins') ? parseInt(localStorage.getItem('mn_coins')) : 0;
     let exp = localStorage.getItem('mn_exp') ? parseInt(localStorage.getItem('mn_exp')) : 0;
     let level = localStorage.getItem('mn_level') ? parseInt(localStorage.getItem('mn_level')) : 1;
     let totalIncome = localStorage.getItem('mn_income') ? parseFloat(localStorage.getItem('mn_income')) : 0;
     let totalExpense = localStorage.getItem('mn_expense') ? parseFloat(localStorage.getItem('mn_expense')) : 0;
+    let tonkatsuSavings = localStorage.getItem('mn_tonkatsu_savings') ? parseFloat(localStorage.getItem('mn_tonkatsu_savings')) : 0;
     let inventory = JSON.parse(localStorage.getItem('mn_inventory') || '["พรมหญ้าพาสเทล"]');
     let isBgmPlaying = false;
 
@@ -586,10 +653,10 @@
         const audio = document.getElementById('bgm-player');
         if(isBgmPlaying) {
             audio.pause();
-            document.getElementById('bgm-txt').innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#825c38" stroke-width="2" stroke-linecap="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg> bgm: off`;
+            document.getElementById('bgm-txt').innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7a532d" stroke-width="2" stroke-linecap="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg> bgm: off`;
         } else {
             audio.play().catch(() => {});
-            document.getElementById('bgm-txt').innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#825c38" stroke-width="2" stroke-linecap="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg> bgm: on`;
+            document.getElementById('bgm-txt').innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7a532d" stroke-width="2" stroke-linecap="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg> bgm: on`;
         }
         isBgmPlaying = !isBgmPlaying;
     }
@@ -608,8 +675,8 @@
         } else if(screen === 'quests') {
             speak("กระดานเควสประจำวัน! ค่อยๆ ทำเพื่อเก็บ Coins กันงับ ✨");
         } else if(screen === 'dashboard') {
-            speak("สรุปภาพรวมการเงินมาแล้วงับ!");
-            renderChart();
+            speak("สรุปภาพรวมแยกกระเป๋า และระดับความอ้วนของ tonkatsu-chan งับ!");
+            renderDashboard();
         } else {
             speak("พร้อมจดบันทึกแล้วงับ");
         }
@@ -668,6 +735,11 @@
         if(!amt) { speak("อย่าลืมใส่จำนวนเงินนะงับ"); playBeep(200, 'sawtooth'); return; }
 
         playBeep(800, 'sine', 0.2);
+
+        if(activePocket === 'tonkatsu-chan') {
+            tonkatsuSavings += amt;
+            localStorage.setItem('mn_tonkatsu_savings', tonkatsuSavings);
+        }
 
         if(transactionType === 'income') totalIncome += amt;
         else totalExpense += amt;
@@ -742,21 +814,57 @@
         document.getElementById('room-items').innerHTML = html;
     }
 
+    // 🐖 Dashboard Fat Pig & Pocket Chart System
     let chartInstance = null;
+    function renderDashboard() {
+        document.getElementById('dash-savings-val').innerText = tonkatsuSavings.toLocaleString();
+        const pigPig = document.getElementById('dash-fat-pig');
+        const statusTxt = document.getElementById('dash-pig-status');
+
+        // คำนวณขยายขนาดตัวน้องหมูตามเงินออมสะสม
+        let scaleFactor = 1 + Math.min(tonkatsuSavings / 5000, 0.8);
+        pigPig.style.transform = `scale(${scaleFactor})`;
+
+        if(tonkatsuSavings >= 5000) {
+            statusTxt.innerText = "(ร่างหมูอ้วนจอมออม: สมบูรณ์พูนสุขสุดๆ งับ! 👑🐖)";
+        } else if(tonkatsuSavings >= 2000) {
+            statusTxt.innerText = "(ร่างกลมมน: เริ่มอ้วนอวบน่ารักแล้วน้า ✨)";
+        } else {
+            statusTxt.innerText = "(ร่างสลอยด์: โอนเงินเข้า tonkatsu-chan เพิ่มความอ้วนกันน้า!)";
+        }
+
+        renderChart();
+    }
+
+    function switchDashPocket(pkt) {
+        dashActivePocket = pkt;
+        document.getElementById('tab-dash-min').className = pkt === 'min' ? 'dash-tab active' : 'dash-tab';
+        document.getElementById('tab-dash-natsu').className = pkt === 'natsu' ? 'dash-tab active' : 'dash-tab';
+        renderChart();
+    }
+
     function renderChart() {
         const ctx = document.getElementById('expenseChart').getContext('2d');
         if(chartInstance) chartInstance.destroy();
+
+        // ข้อมูลจำลองแยกตามกระเป๋า min / natsu
+        let dataValues = dashActivePocket === 'min' ? [45, 30, 15, 10] : [20, 15, 50, 15];
 
         chartInstance = new Chart(ctx, {
             type: 'doughnut',
             data: {
                 labels: ['กิน', 'พะโล้', 'แม่แมว', 'wish list'],
                 datasets: [{
-                    data: [40, 25, 20, 15],
+                    data: dataValues,
                     backgroundColor: ['#ffb703', '#8fa082', '#ff85a1', '#9d4edd']
                 }]
             },
-            options: { plugins: { legend: { position: 'bottom' } } }
+            options: { 
+                plugins: { 
+                    legend: { position: 'bottom' },
+                    title: { display: true, text: `สรุปสัดส่วนการใช้จ่าย: ${dashActivePocket} pocket` }
+                } 
+            }
         });
     }
 
