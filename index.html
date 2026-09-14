@@ -15,7 +15,7 @@
             --blue: #A4D1F2;
             --light-blue: #D0E6F7;
             --green: #CBD83B;
-            --orange: #FEB700;
+            --orange: #F8BA43;
             --light-orange: #FFE26F;
             --text-color: #5c4b37;
         }
@@ -24,12 +24,14 @@
         
         body {
             background-color: var(--light-blue);
+            background-image: radial-gradient(var(--blue) 15%, transparent 16%);
+            background-size: 26px 26px;
             color: var(--text-color);
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            overflow: hidden; /* ป้องกันการเลื่อนหน้าจอ */
+            overflow: hidden;
         }
 
         .game-card {
@@ -38,7 +40,7 @@
             max-width: 420px;
             height: 100%;
             max-height: 850px;
-            border-radius: 20px;
+            border-radius: 24px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             border: 4px solid var(--light-purple);
             display: flex;
@@ -48,174 +50,214 @@
 
         /* Top Bar */
         .top-bar {
-            background-color: var(--blue);
-            padding: 12px 16px;
+            background-color: var(--pink);
+            padding: 12px 18px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-bottom: 3px solid var(--purple);
         }
-        .app-title { font-size: 1rem; font-weight: 500; color: #fff; }
+        .app-title { font-size: 1.1rem; font-weight: 500; color: var(--text-color); }
         .status-badge {
-            background: #fff; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem;
+            background: #fff; padding: 4px 12px; border-radius: 20px; font-size: 0.85rem;
             color: var(--orange); border: 2px solid var(--yellow); display: flex; align-items: center; gap: 4px;
         }
 
         /* EXP Bar & Level */
         .exp-zone {
             background: var(--light-orange);
-            padding: 6px 16px;
+            padding: 8px 18px;
             display: flex;
             align-items: center;
             gap: 10px;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             color: var(--text-color);
         }
-        .exp-bar-outer { flex: 1; height: 8px; background: #fff; border-radius: 10px; border: 1px solid var(--orange); }
+        .exp-bar-outer { flex: 1; height: 10px; background: #fff; border-radius: 10px; border: 1px solid var(--orange); }
         .exp-bar-inner { height: 100%; width: 0%; background: var(--orange); border-radius: 10px; transition: width 0.3s; }
 
         /* Minnatsu Character Zone */
         .minnatsu-box {
-            background: var(--pink);
-            padding: 10px 16px;
+            background: var(--light-purple);
+            padding: 12px 18px;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
             position: relative;
         }
         .avatar-img {
-            width: 50px; height: 50px; background: #fff; border-radius: 50%; display: flex;
-            justify-content: center; align-items: center; border: 2px solid var(--purple); flex-shrink: 0;
+            width: 56px; height: 56px; background: #fff; border-radius: 50%; display: flex;
+            justify-content: center; align-items: center; border: 3px solid var(--purple); flex-shrink: 0;
+            animation: float 3s ease-in-out infinite;
         }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+        
         .speech-bubble {
-            background: #fff; padding: 8px 12px; border-radius: 16px; font-size: 0.8rem;
-            color: var(--text-color); border: 2px solid var(--purple); flex: 1; line-height: 1.3;
+            background: #fff; padding: 10px 14px; border-radius: 18px; font-size: 0.85rem;
+            color: var(--text-color); border: 2px solid var(--purple); flex: 1; line-height: 1.4;
         }
 
         /* Nav Grid */
         .nav-grid {
-            display: flex; background: var(--light-purple); padding: 6px; gap: 6px;
+            display: flex; background: #fff; padding: 8px; gap: 6px; border-bottom: 2px solid var(--light-purple);
         }
         .nav-item {
-            flex: 1; text-align: center; padding: 8px 0; font-size: 0.75rem; color: var(--text-color);
-            cursor: pointer; border-radius: 12px; background: #fff; border: 2px solid #fff; transition: 0.2s;
+            flex: 1; text-align: center; padding: 8px 0; font-size: 0.8rem; color: var(--text-color);
+            cursor: pointer; border-radius: 14px; background: var(--light-purple); border: 2px solid transparent; transition: 0.2s;
         }
-        .nav-item.active { background: var(--purple); color: #fff; border-color: var(--purple); font-weight: 500; }
+        .nav-item.active { background: var(--purple); color: #fff; font-weight: 500; }
 
-        /* Screen Views (เนื้อหาหลัก เลื่อนขึ้นลงได้เฉพาะในกรอบนี้) */
-        .view-screen { 
-            flex: 1; overflow-y: auto; padding: 16px; display: none; background: #fff;
-        }
+        /* Screen Views */
+        .view-screen { flex: 1; overflow-y: auto; padding: 18px; display: none; background: #fff; }
         .view-screen::-webkit-scrollbar { display: none; }
         .view-screen.active { display: block; }
 
         /* Pocket Selector */
-        .pocket-row { display: flex; gap: 8px; margin-bottom: 12px; }
+        .pocket-row { display: flex; gap: 8px; margin-bottom: 16px; }
         .pocket-btn {
-            flex: 1; padding: 8px 4px; background: #fff; border: 2px solid var(--light-purple);
-            border-radius: 16px; font-size: 0.75rem; color: var(--text-color); cursor: pointer; text-align: center;
+            flex: 1; padding: 10px 4px; background: #fff; border: 2px solid var(--light-purple);
+            border-radius: 16px; font-size: 0.8rem; color: var(--text-color); cursor: pointer; text-align: center;
         }
         #p-min.active { background: var(--blue); border-color: var(--blue); color: #fff; }
         #p-natsu.active { background: var(--purple); border-color: var(--purple); color: #fff; }
         #p-katsu.active { background: var(--orange); border-color: var(--orange); color: #fff; }
 
         /* Input Form */
-        .form-group { display: flex; flex-direction: column; gap: 10px; }
-        .type-selector { display: flex; gap: 8px; }
+        .form-group { display: flex; flex-direction: column; gap: 12px; }
+        .type-selector { display: flex; gap: 10px; }
         .type-btn {
-            flex: 1; padding: 8px; border-radius: 12px; border: 2px solid var(--light-purple);
-            background: #fff; text-align: center; font-size: 0.8rem; cursor: pointer;
+            flex: 1; padding: 10px; border-radius: 14px; border: 2px solid var(--light-purple);
+            background: #fff; text-align: center; font-size: 0.85rem; cursor: pointer; color: var(--text-color);
         }
         .type-btn.active-exp { background: var(--pink); color: var(--text-color); border-color: var(--pink); }
         .type-btn.active-inc { background: var(--green); color: var(--text-color); border-color: var(--green); }
         .type-btn.active-sav { background: var(--yellow); color: var(--text-color); border-color: var(--yellow); }
 
         .amount-field {
-            font-size: 2rem; text-align: right; color: var(--orange); background: #fff;
-            border: 2px solid var(--light-blue); border-radius: 16px; padding: 8px 16px; outline: none;
+            font-size: 2.2rem; text-align: right; color: var(--orange); background: #fff;
+            border: 3px solid var(--light-blue); border-radius: 20px; padding: 10px 18px; outline: none;
         }
         .input-field {
-            padding: 10px 14px; border: 2px solid var(--light-blue); border-radius: 12px;
-            outline: none; font-size: 0.85rem; background: #fff; color: var(--text-color);
+            padding: 12px 16px; border: 2px solid var(--light-blue); border-radius: 16px;
+            outline: none; font-size: 0.9rem; background: #fff; color: var(--text-color);
         }
+        
         .stamp-btn {
-            background: var(--orange); color: white; border: none; padding: 12px;
-            border-radius: 16px; font-size: 1rem; font-weight: 500; cursor: pointer; box-shadow: 0 4px 0 #cc9200; margin-top: 4px;
+            background: var(--green); color: #fff; border: none; padding: 14px;
+            border-radius: 20px; font-size: 1.1rem; font-weight: 500; cursor: pointer; 
+            box-shadow: 0 4px 0 #a2b020; margin-top: 6px; transition: 0.1s;
         }
         .stamp-btn:active { transform: translateY(4px); box-shadow: none; }
 
         /* KATSU-CHAN ROOM */
         .katsu-room {
-            padding: 20px 10px; text-align: center; margin-bottom: 12px; position: relative;
-            background: var(--light-orange); border-radius: 20px; border: 2px solid var(--yellow);
+            padding: 30px 15px; text-align: center; margin-bottom: 16px; position: relative;
+            background: var(--light-orange); border-radius: 24px; border: 3px solid var(--yellow);
         }
         .plate-base {
-            width: 160px; height: 45px; background: #fff; border-radius: 50%; margin: 0 auto;
-            position: relative; box-shadow: 0 6px 0 #ffe1a8; border: 2px solid var(--yellow);
+            width: 170px; height: 50px; background: #ffffff; border-radius: 50%; margin: 0 auto;
+            position: relative; box-shadow: 0 8px 0 var(--orange); border: 2px solid var(--yellow);
             display: flex; justify-content: center; align-items: center;
         }
         .cabbage-bed {
-            width: 130px; height: 30px; background: var(--green); border-radius: 50%;
-            position: absolute; top: -10px; border: 2px dashed #a8b52f;
+            width: 140px; height: 35px; background: var(--green); border-radius: 50%;
+            position: absolute; top: -12px; border: 2px dashed #a2b020;
         }
         .tonkatsu-character {
-            width: 120px; height: 80px; background: var(--orange); border-radius: 40px 45px 30px 35px;
-            position: absolute; top: -65px; box-shadow: inset 0 -4px 0 #cc9200; cursor: pointer;
-            border: 2px solid #cc9200;
+            width: 130px; height: 85px; background: var(--orange); border-radius: 40px 45px 30px 35px;
+            position: absolute; top: -70px; box-shadow: inset 0 -6px 0 #cc9200; cursor: pointer;
+            border: 3px solid #cc9200; transition: 0.3s;
         }
-        /* ลบกรอบซอสน้ำตาลทิ้งไปแล้ว เพิ่มความเนียนของเกล็ดขนมปังแทน */
+        .tonkatsu-character.hungry-state {
+            filter: grayscale(40%) brightness(0.9); animation: hungryShiver 1s infinite;
+        }
+        @keyframes hungryShiver { 0%,100%{transform:translateX(0);} 50%{transform:translateX(-3px);} }
+
         .panko-flakes {
             position: absolute; width: 100%; height: 100%; top:0; left:0; border-radius: inherit;
             background-image: radial-gradient(var(--yellow) 15%, transparent 20%), radial-gradient(#ffd043 15%, transparent 20%);
-            background-size: 14px 14px, 20px 20px; opacity: 0.9;
+            background-size: 16px 16px, 22px 22px; opacity: 0.9;
         }
-        .face-eyes { display: flex; justify-content: space-between; width: 44px; position: absolute; top: 32px; left: 38px; z-index: 5; }
-        .eye { width: 6px; height: 8px; background: #333; border-radius: 50%; }
-        .cheeks { display: flex; justify-content: space-between; width: 60px; position: absolute; top: 38px; left: 30px; z-index: 5; }
-        .cheek { width: 10px; height: 6px; background: var(--pink); border-radius: 50%; opacity: 0.9; }
+        .face-eyes { display: flex; justify-content: space-between; width: 48px; position: absolute; top: 35px; left: 40px; z-index: 5; }
+        .eye { width: 7px; height: 9px; background: #333; border-radius: 50%; }
+        .hungry-state .eye { height: 4px; border-radius: 2px; } 
+        .cheeks { display: flex; justify-content: space-between; width: 66px; position: absolute; top: 42px; left: 31px; z-index: 5; }
+        .cheek { width: 12px; height: 7px; background: var(--pink); border-radius: 50%; opacity: 0.9; }
         .snout {
-            width: 22px; height: 14px; background: #ffccbc; border-radius: 10px;
-            position: absolute; top: 35px; left: 49px; border: 2px solid #ff8a65;
-            display: flex; justify-content: center; align-items: center; gap: 3px; z-index: 5;
+            width: 24px; height: 16px; background: #ffccbc; border-radius: 12px;
+            position: absolute; top: 38px; left: 52px; border: 2px solid #ff8a65;
+            display: flex; justify-content: center; align-items: center; gap: 4px; z-index: 5;
         }
-        .nostril { width: 2px; height: 4px; background: #d84315; border-radius: 2px; }
+        .nostril { width: 3px; height: 5px; background: #d84315; border-radius: 2px; }
 
-        /* GACHA OVERLAY (No Emoji) */
+        /* Food Animation Container */
+        .food-drop {
+            position: absolute; top: -60px; left: 50px; z-index: 20; opacity: 0;
+        }
+        @keyframes dropEat { 
+            0% { transform: translateY(-30px); opacity: 1; } 
+            50% { transform: translateY(40px); opacity: 1; } 
+            100% { transform: translateY(40px) scale(0); opacity: 0; } 
+        }
+
+        /* GACHA OVERLAY */
         #gacha-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(255, 255, 255, 0.9); z-index: 100; display: none;
+            background: rgba(255, 255, 255, 0.95); z-index: 100; display: none;
             flex-direction: column; justify-content: center; align-items: center;
         }
         .gacha-machine {
-            width: 150px; height: 200px; background: var(--pink); border-radius: 75px 75px 20px 20px;
+            width: 180px; height: 240px; background: var(--pink); border-radius: 90px 90px 20px 20px;
             border: 4px solid var(--purple); position: relative; display: flex; flex-direction: column; align-items: center;
+            box-shadow: 0 10px 0 var(--light-purple);
         }
-        .gacha-glass { width: 130px; height: 110px; background: #fff; border-radius: 65px 65px 20px 20px; margin-top: 10px; border: 2px solid var(--purple); position: relative; overflow: hidden; }
-        .gacha-knob { width: 40px; height: 40px; background: var(--yellow); border-radius: 50%; margin-top: 15px; border: 2px solid var(--purple); cursor: pointer; }
+        .gacha-glass { 
+            width: 150px; height: 130px; background: #fff; border-radius: 75px 75px 20px 20px; 
+            margin-top: 15px; border: 3px solid var(--purple); position: relative; overflow: hidden; 
+        }
+        .gacha-knob { 
+            width: 45px; height: 45px; background: var(--yellow); border-radius: 50%; 
+            margin-top: 20px; border: 3px solid var(--purple); cursor: pointer; box-shadow: 0 4px 0 #cc9200;
+        }
+        .gacha-knob:active { transform: rotate(45deg); }
+        
         .gacha-capsule {
-            width: 30px; height: 30px; background: var(--blue); border-radius: 50%; position: absolute;
-            border: 2px solid var(--purple); display: none;
+            width: 40px; height: 40px; background: var(--blue); border-radius: 50%; position: absolute;
+            border: 3px solid var(--purple); display: none;
         }
-        .gacha-result { margin-top: 20px; font-size: 1rem; color: var(--purple); font-weight: 500; text-align: center; }
-        #room-items-grid { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 10px; }
-        .svg-item-icon { display: inline-flex; justify-content: center; align-items: center; padding: 4px; background: #fff; border-radius: 8px; border: 1px solid var(--yellow); box-shadow: 0 2px 0 var(--light-orange); }
+        .gacha-result { margin-top: 25px; font-size: 1.1rem; color: var(--purple); font-weight: 500; text-align: center; }
+        
+        /* Room Items Grid */
+        #room-items-grid { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 15px; }
+        .svg-item-icon { 
+            display: inline-flex; justify-content: center; align-items: center; padding: 6px; 
+            background: #fff; border-radius: 12px; border: 2px solid var(--yellow); box-shadow: 0 3px 0 var(--light-orange); 
+        }
 
-        /* Quest List (No Emoji) */
-        .quest-list { display: flex; flex-direction: column; gap: 8px; }
+        /* Quest List System (อัปเกรดปุ่มล็อก/ปลดล็อก) */
+        .quest-list { display: flex; flex-direction: column; gap: 10px; }
         .quest-card {
-            background: #fff; border: 2px solid var(--pink); padding: 12px;
-            border-radius: 14px; display: flex; justify-content: space-between;
-            align-items: center; font-size: 0.8rem;
+            background: #fff; border: 2px solid var(--pink); padding: 14px;
+            border-radius: 16px; display: flex; justify-content: space-between;
+            align-items: center; font-size: 0.85rem; box-shadow: 0 3px 0 var(--light-pink); transition: 0.2s;
         }
-        .quest-card.completed { background: var(--light-blue); border-color: var(--blue); opacity: 0.7; }
-        .quest-claim-btn { background: var(--green); color: var(--text-color); border: none; padding: 4px 10px; border-radius: 8px; cursor: pointer; }
-        .quest-claim-btn:disabled { background: #eee; color: #999; }
+        .quest-card.completed { background: var(--light-blue); border-color: var(--blue); box-shadow: none; }
+        
+        .quest-claim-btn { 
+            border: none; padding: 6px 12px; border-radius: 10px; font-size: 0.8rem; cursor: pointer; font-weight: 400; transition: 0.2s;
+        }
+        /* 3 สถานะของปุ่มเควส */
+        .quest-claim-btn.locked { background: #eee; color: #aaa; cursor: not-allowed; box-shadow: none; }
+        .quest-claim-btn.ready { background: var(--green); color: #fff; box-shadow: 0 3px 0 #a2b020; cursor: pointer; }
+        .quest-claim-btn.claimed { background: var(--light-purple); color: var(--text-color); box-shadow: none; cursor: default; }
 
         /* Dashboard */
-        .dash-summary { display: flex; gap: 8px; margin-bottom: 12px; }
-        .summary-box { flex: 1; background: var(--light-blue); padding: 8px; border-radius: 12px; text-align: center; border: 1px solid var(--blue); }
-        .summary-box .val { font-size: 1.1rem; font-weight: 500; color: var(--text-color); }
-        .summary-box .lbl { font-size: 0.65rem; color: #777; }
-        .chart-box { background: #fff; border: 2px solid var(--light-purple); border-radius: 14px; padding: 10px; margin-bottom: 12px; }
+        .dash-summary { display: flex; gap: 10px; margin-bottom: 16px; }
+        .summary-box { flex: 1; background: var(--light-blue); padding: 12px 8px; border-radius: 16px; text-align: center; border: 2px solid var(--blue); }
+        .summary-box .val { font-size: 1.2rem; font-weight: 500; color: var(--text-color); margin-top: 4px; }
+        .summary-box .lbl { font-size: 0.75rem; color: var(--text-color); }
+        
+        .chart-box { background: #fff; border: 2px solid var(--light-purple); border-radius: 18px; padding: 12px; margin-bottom: 16px; }
     </style>
 </head>
 <body>
@@ -225,7 +267,7 @@
     <div class="top-bar">
         <h1 class="app-title">minnatsu diary</h1>
         <div class="status-badge">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--orange)"><circle cx="12" cy="12" r="10"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--orange)"><circle cx="12" cy="12" r="10"/></svg>
             <span id="coin-txt">0</span> coins
         </div>
     </div>
@@ -240,30 +282,27 @@
     <!-- 👧🏻 Minnatsu Character -->
     <div class="minnatsu-box">
         <div class="avatar-img">
-            <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+            <svg width="44" height="44" viewBox="0 0 40 40" fill="none">
                 <circle cx="20" cy="20" r="16" fill="#ffe2d1"/>
-                <!-- ผมสั้นหน้าม้า -->
                 <path d="M6 18C6 10 11 6 20 6C29 6 34 10 34 18V24C34 26 32 27 31 25C30 23 29 20 29 18C29 12 25 8 20 8C15 8 11 12 11 18C11 20 10 23 9 25C8 27 6 26 6 24V18Z" fill="#7a5129"/>
                 <path d="M12 13C15 15 18 15 20 13C22 15 25 15 28 13C27 10 24 8 20 8C16 8 13 10 12 13Z" fill="#5c3b1e"/>
-                <!-- โบว์สีม่วง -->
-                <path d="M10 9C9 7 12 6 13 8C14 6 17 7 16 9C15 10 11 10 10 9Z" fill="var(--purple)"/>
-                <!-- หน้าตา -->
-                <circle cx="14" cy="20" r="2" fill="#2d1c10"/>
-                <circle cx="26" cy="20" r="2" fill="#2d1c10"/>
-                <circle cx="10" cy="23" r="3" fill="var(--pink)"/>
-                <circle cx="30" cy="23" r="3" fill="var(--pink)"/>
-                <path d="M17 24C17 24 18.5 26 20 26C21.5 26 23 24 23 24" stroke="#d95d39" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M10 9C9 7 12 6 13 8C14 6 17 7 16 9C15 10 11 10 10 9Z" fill="var(--blue)"/>
+                <circle cx="14" cy="20" r="2.2" fill="#2d1c10"/>
+                <circle cx="26" cy="20" r="2.2" fill="#2d1c10"/>
+                <circle cx="10" cy="23" r="3.5" fill="var(--pink)"/>
+                <circle cx="30" cy="23" r="3.5" fill="var(--pink)"/>
+                <path d="M17 24C17 24 18.5 26 20 26C21.5 26 23 24 23 24" stroke="#d95d39" stroke-width="1.8" stroke-linecap="round"/>
             </svg>
         </div>
         <div class="speech-bubble" id="speech-txt">
-            ยินดีต้อนรับ! (บันทึกข้อมูล 1 ครั้ง ได้ +20 exp ครบ 100 เลเวลอัปเลยจ้ะ)
+            ยินดีต้อนรับ! (บันทึก 1 ครั้ง ได้ +20 exp ครบ 100 แล้วเลเวลอัปเลยจ้ะ)
         </div>
     </div>
 
     <!-- Navigation -->
     <div class="nav-grid">
         <div class="nav-item active" onclick="switchNav('entry')" id="nav-entry">บันทึก</div>
-        <div class="nav-item" onclick="switchNav('room')" id="nav-room">ห้อง katsu</div>
+        <div class="nav-item" onclick="switchNav('room')" id="nav-room">ห้องคัตสึ</div>
         <div class="nav-item" onclick="switchNav('quests')" id="nav-quests">เควส</div>
         <div class="nav-item" onclick="switchNav('dashboard')" id="nav-dashboard">สรุป</div>
     </div>
@@ -311,65 +350,48 @@
             <div style="height: 50px;"></div>
             <div class="plate-base">
                 <div class="cabbage-bed"></div>
-                <div class="tonkatsu-character" onclick="pokePiggy(event)">
+                <div class="tonkatsu-character" id="katsu-char" onclick="pokePiggy(event)">
+                    <div id="food-animation" class="food-drop"></div>
                     <div class="panko-flakes"></div>
                     <div class="face-eyes"><div class="eye"></div><div class="eye"></div></div>
                     <div class="cheeks"><div class="cheek"></div><div class="cheek"></div></div>
                     <div class="snout"><div class="nostril"></div><div class="nostril"></div></div>
                 </div>
             </div>
-            <div style="font-size: 0.8rem; color: var(--text-color); margin-top: 10px;">ห้องของ katsu-chan</div>
+            <div style="font-size: 0.85rem; color: var(--text-color); margin-top: 15px;">ห้องของ katsu-chan</div>
             <div id="room-items-grid"></div>
         </div>
-        <button class="stamp-btn" style="width:100%; background: var(--pink); border: none; box-shadow: 0 4px 0 #e8a5c4;" onclick="openGacha()">หมุนกาชาปอง (30 coins)</button>
+        <button class="stamp-btn" style="width:100%; background: var(--purple); box-shadow: 0 4px 0 #b38bd8;" onclick="openGacha()">หมุนกาชาปอง (30 coins)</button>
     </div>
 
     <!-- SCREEN 3: Daily Quest System -->
     <div class="view-screen" id="view-quests">
-        <p style="font-size: 0.75rem; text-align: center; margin-bottom: 10px;">ทำเควสเพื่อเก็บ coins อัปเลเวล</p>
-        <div class="quest-list">
-            <div class="quest-card" id="q1">
-                <div><div>บันทึกรายการแรกของวัน</div><div style="font-size:0.7rem; color:var(--orange);">+10 coins</div></div>
-                <button class="quest-claim-btn" id="qbtn1" onclick="claimQuest(1, 10)">รับ</button>
-            </div>
-            <div class="quest-card" id="q2">
-                <div><div>ออมเงินใส่ katsu-chan</div><div style="font-size:0.7rem; color:var(--orange);">+15 coins</div></div>
-                <button class="quest-claim-btn" id="qbtn2" onclick="claimQuest(2, 15)">รับ</button>
-            </div>
-            <div class="quest-card" id="q3">
-                <div><div>บันทึกหมวดพะโล้หรือแม่แมว</div><div style="font-size:0.7rem; color:var(--orange);">+15 coins</div></div>
-                <button class="quest-claim-btn" id="qbtn3" onclick="claimQuest(3, 15)">รับ</button>
-            </div>
-            <div class="quest-card" id="q4">
-                <div><div>บันทึกรายรับครั้งแรก</div><div style="font-size:0.7rem; color:var(--orange);">+10 coins</div></div>
-                <button class="quest-claim-btn" id="qbtn4" onclick="claimQuest(4, 10)">รับ</button>
-            </div>
-            <div class="quest-card" id="q5">
-                <div><div>หมุนกาชาปอง 1 ครั้ง</div><div style="font-size:0.7rem; color:var(--orange);">+20 coins</div></div>
-                <button class="quest-claim-btn" id="qbtn5" onclick="claimQuest(5, 20)">รับ</button>
-            </div>
+        <p style="font-size: 0.8rem; text-align: center; margin-bottom: 12px; color: var(--text-color);">ทำเควสสำเร็จ ถึงจะกดรับรางวัลได้นะจ๊ะ</p>
+        <div class="quest-list" id="quest-container-ui">
+            <!-- Render via JS -->
         </div>
     </div>
 
     <!-- SCREEN 4: Dashboard -->
     <div class="view-screen" id="view-dashboard">
         <div class="dash-summary">
-            <div class="summary-box" style="background:var(--green);">
-                <div class="lbl">รายรับ</div><div class="val" id="sum-inc">0</div>
+            <div class="summary-box" style="background:var(--green); border-color:#a2b020;">
+                <div class="lbl">รายรับทั้งหมด</div><div class="val" id="sum-inc">0</div>
             </div>
-            <div class="summary-box" style="background:var(--pink);">
-                <div class="lbl">รายจ่าย</div><div class="val" id="sum-exp">0</div>
+            <div class="summary-box" style="background:var(--pink); border-color:#e0a5c4;">
+                <div class="lbl">รายจ่ายทั้งหมด</div><div class="val" id="sum-exp">0</div>
             </div>
-            <div class="summary-box" style="background:var(--yellow);">
+            <div class="summary-box" style="background:var(--yellow); border-color:#d4c25f;">
                 <div class="lbl">เงินออม (katsu)</div><div class="val" id="sum-sav">0</div>
             </div>
         </div>
 
         <div class="chart-box">
-            <canvas id="compareChart" style="max-height: 120px;"></canvas>
+            <canvas id="compareChart" style="max-height: 140px;"></canvas>
         </div>
         <div class="chart-box">
-            <canvas id="expenseChart" style="max-height: 150px;"></canvas>
+            <div style="font-size:0.8rem; text-align:center; color:var(--text-color); margin-bottom:8px;">สัดส่วนรายจ่ายตามหมวดหมู่</div>
+            <canvas id="expenseChart" style="max-height: 160px;"></canvas>
         </div>
     </div>
 
@@ -377,20 +399,21 @@
     <div id="gacha-overlay">
         <div class="gacha-machine">
             <div class="gacha-glass">
-                <div style="width:20px;height:20px;background:var(--blue);border-radius:50%;position:absolute;bottom:10px;left:20px;"></div>
-                <div style="width:20px;height:20px;background:var(--yellow);border-radius:50%;position:absolute;bottom:15px;right:25px;"></div>
-                <div style="width:20px;height:20px;background:var(--pink);border-radius:50%;position:absolute;bottom:5px;left:50px;"></div>
+                <div style="width:24px;height:24px;background:var(--blue);border-radius:50%;position:absolute;bottom:10px;left:25px;border:2px solid var(--purple)"></div>
+                <div style="width:24px;height:24px;background:var(--yellow);border-radius:50%;position:absolute;bottom:15px;right:30px;border:2px solid var(--purple)"></div>
+                <div style="width:24px;height:24px;background:var(--green);border-radius:50%;position:absolute;bottom:5px;left:60px;border:2px solid var(--purple)"></div>
+                <div style="width:24px;height:24px;background:var(--orange);border-radius:50%;position:absolute;bottom:25px;left:45px;border:2px solid var(--purple)"></div>
             </div>
             <div class="gacha-knob" onclick="doSpin()"></div>
         </div>
         <div class="gacha-capsule" id="g-capsule"></div>
-        <div class="gacha-result" id="g-result">กดปุ่มสีเหลืองเพื่อหมุน!</div>
-        <button class="stamp-btn" style="margin-top:20px; background:var(--blue); border:none;" onclick="closeGacha()">ปิดหน้าต่าง</button>
+        <div class="gacha-result" id="g-result">กดปุ่มสีส้มเพื่อหมุนกาชาปอง!</div>
+        <button class="stamp-btn" style="margin-top:24px; background:var(--blue); box-shadow: 0 4px 0 #7caad1;" onclick="closeGacha()">ปิดหน้าต่าง</button>
     </div>
 </div>
 
 <script>
-    const GAS_URL = "https://script.google.com/macros/s/AKfycbwGJX0Xw93UzUyAOEePWmNiAmRJdvzimIAWMKhD18ZFCgE2ax0xTBDFHfJOZ_nDsACjEQ/exec";
+    const GAS_URL = "YOUR_APP_SCRIPT_URL_HERE"; 
 
     let activePocket = 'min';
     let transactionType = 'expense';
@@ -404,16 +427,47 @@
     }));
     let katsuSavings = localStorage.getItem('mn_katsu_savings') ? parseFloat(localStorage.getItem('mn_katsu_savings')) : 0;
     let inventory = JSON.parse(localStorage.getItem('mn_inventory') || '[]');
+    let lastEntryTime = localStorage.getItem('mn_last_entry') ? parseInt(localStorage.getItem('mn_last_entry')) : Date.now();
+
+    /* --- REAL QUEST TRACKING SYSTEM --- */
+    const todayStr = new Date().toDateString();
+    let qData = JSON.parse(localStorage.getItem('mn_quest_data') || '{}');
+    if (qData.date !== todayStr) {
+        // 0=locked, 1=ready, 2=claimed
+        qData = { date: todayStr, q1: 0, q2: 0, q3: 0, q4: 0, q5: 0, q6: 0 };
+        localStorage.setItem('mn_quest_data', JSON.stringify(qData));
+    }
+    const questDetails = [
+        { id: 1, title: "บันทึกรายการแรกของวัน", reward: 10 },
+        { id: 2, title: "ออมเงินให้คัตสึจัง", reward: 15 },
+        { id: 3, title: "บันทึกหมวดพะโล้หรือแม่แมว", reward: 15 },
+        { id: 4, title: "บันทึกรายรับครั้งแรก", reward: 10 },
+        { id: 5, title: "หมุนกาชาปอง 1 ครั้ง", reward: 20 },
+        { id: 6, title: "ใช้งานต่อเนื่องไม่ปล่อยให้คัตสึหิว", reward: 30 }
+    ];
 
     document.getElementById('val-date').valueAsDate = new Date();
     updateUI();
+    checkHungryState();
     renderRoom();
+    renderQuests();
 
     function updateUI() {
         document.getElementById('coin-txt').innerText = coins;
         document.getElementById('level-txt').innerText = level;
         document.getElementById('exp-txt').innerText = exp;
         document.getElementById('exp-fill').style.width = (exp % 100) + '%';
+    }
+
+    function checkHungryState() {
+        const msInDay = 24 * 60 * 60 * 1000;
+        const diffDays = (Date.now() - lastEntryTime) / msInDay;
+        const katsuChar = document.getElementById('katsu-char');
+        if (diffDays >= 7) {
+            katsuChar.classList.add('hungry-state');
+        } else {
+            katsuChar.classList.remove('hungry-state');
+        }
     }
 
     function speak(text) { document.getElementById('speech-txt').innerText = text; }
@@ -425,11 +479,14 @@
         document.getElementById('view-' + screen).classList.add('active');
 
         if(screen === 'room') {
-            speak("ห้องของ katsu-chan หมุนกาชาปองมาแต่งห้องได้นะ");
+            const isHungry = document.getElementById('katsu-char').classList.contains('hungry-state');
+            if(isHungry) speak("katsu-chan หิวโหยมากเลย ไม่ได้กินอะไรมา 7 วันแล้ว! รีบบันทึกด่วน");
+            else speak("ห้องของ katsu-chan หมุนกาชาปองมาแต่งห้องได้นะ");
         } else if(screen === 'quests') {
-            speak("ทำเควสแล้วกดปุ่มรับ coins ได้เลยจ้ะ");
+            speak("ต้องทำเควสให้สำเร็จก่อนถึงจะกดรับรางวัลได้นะจ๊ะ");
+            renderQuests();
         } else if(screen === 'dashboard') {
-            speak("สรุปข้อมูลรายรับและรายจ่ายทั้งหมด");
+            speak("สรุปข้อมูลรายรับและรายจ่ายทั้งหมดให้แล้วจ้ะ");
             renderDashboard();
         } else {
             speak("พร้อมบันทึกข้อมูลแล้วจ้ะ");
@@ -474,35 +531,100 @@
     }
 
     function pokePiggy(e) {
-        speak("ทงคัตสึทอดสีทองกรอบฉ่ำๆ น่ากินไหมล่ะ");
+        if(document.getElementById('katsu-char').classList.contains('hungry-state')) {
+            speak("หิวจังเลยฮะ... ไม่มีแรงแล้วฮะ (รีบบันทึกเพื่อรับ exp ให้น้องกินข้าวนะ)");
+        } else {
+            speak("ทงคัตสึทอดสีทองกรอบฉ่ำๆ กินอร่อยเลยฮะ!");
+        }
+    }
+
+    function getFoodSvg(expAmount) {
+        if(expAmount === 100 || expAmount === 0) return `<svg width="40" height="40" viewBox="0 0 40 40"><rect x="10" y="20" width="20" height="15" fill="var(--pink)"/><circle cx="20" cy="15" r="5" fill="#f00"/><rect x="18" y="10" width="4" height="10" fill="#f00"/></svg>`;
+        if(expAmount >= 80) return `<svg width="40" height="40" viewBox="0 0 40 40"><path d="M5 25 Q20 40 35 25 L5 25" fill="#e74c3c"/><path d="M10 25 Q20 15 30 25" fill="none" stroke="#f1c40f" stroke-width="3"/></svg>`;
+        if(expAmount >= 60) return `<svg width="40" height="40" viewBox="0 0 40 40"><rect x="10" y="20" width="20" height="10" rx="5" fill="#fff"/><rect x="10" y="15" width="20" height="8" rx="4" fill="#e74c3c"/></svg>`;
+        if(expAmount >= 40) return `<svg width="40" height="40" viewBox="0 0 40 40"><polygon points="20,10 10,30 30,30" fill="#fff"/><rect x="15" y="25" width="10" height="5" fill="#333"/></svg>`;
+        return `<svg width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="10" r="6" fill="#ffb703"/><circle cx="20" cy="20" r="6" fill="#fff"/><circle cx="20" cy="30" r="6" fill="#a2b020"/><rect x="19" y="5" width="2" height="35" fill="#8d6e63"/></svg>`;
+    }
+
+    function completeQuest(id) {
+        if(qData['q'+id] === 0) {
+            qData['q'+id] = 1; // Mark as Ready to claim
+            localStorage.setItem('mn_quest_data', JSON.stringify(qData));
+        }
+    }
+
+    function renderQuests() {
+        let html = '';
+        questDetails.forEach(q => {
+            let status = qData['q'+q.id];
+            let btnClass = status === 0 ? "locked" : (status === 1 ? "ready" : "claimed");
+            let btnText = status === 0 ? "ยังไม่สำเร็จ" : (status === 1 ? "รับรางวัล" : "รับแล้ว");
+            let cardClass = status === 2 ? "quest-card completed" : "quest-card";
+            
+            html += `
+            <div class="${cardClass}" id="q${q.id}">
+                <div><div>${q.title}</div><div style="font-size:0.7rem; color:var(--orange);">+${q.reward} coins</div></div>
+                <button class="quest-claim-btn ${btnClass}" onclick="claimQuest(${q.id}, ${q.reward})" ${status!==1 ? 'disabled' : ''}>${btnText}</button>
+            </div>`;
+        });
+        document.getElementById('quest-container-ui').innerHTML = html;
+    }
+
+    function claimQuest(id, rewardCoins) {
+        if(qData['q'+id] !== 1) return; // Only claim if ready
+
+        qData['q'+id] = 2; // Mark claimed
+        localStorage.setItem('mn_quest_data', JSON.stringify(qData));
+        
+        coins += rewardCoins;
+        localStorage.setItem('mn_coins', coins);
+        updateUI();
+        renderQuests();
+        speak(`เย้! รับรางวัลเควสสำเร็จ ได้ +${rewardCoins} coins ✨`);
     }
 
     async function saveRecord() {
         const amt = parseFloat(document.getElementById('val-amount').value);
         if(!amt) { speak("อย่าลืมใส่จำนวนเงินนะจ๊ะ"); return; }
 
+        localStorage.setItem('mn_last_entry', Date.now());
+        document.getElementById('katsu-char').classList.remove('hungry-state');
+        completeQuest(6); // ใช้งานไม่ปล่อยให้หิว
+
+        const cat = document.getElementById('val-category').value;
+
         if(activePocket === 'katsu-chan') {
             katsuSavings += amt;
             localStorage.setItem('mn_katsu_savings', katsuSavings);
-            claimQuest(2, 15); // Auto trigger quest
+            completeQuest(2); // ออมเงินให้คัตสึจัง
         } else {
             if(transactionType === 'income') {
                 pocketData[activePocket].income += amt;
-                claimQuest(4, 10);
+                completeQuest(4); // รายรับครั้งแรก
             } else {
                 pocketData[activePocket].expense += amt;
-                const cat = document.getElementById('val-category').value;
                 pocketData[activePocket].cats[cat] = (pocketData[activePocket].cats[cat] || 0) + amt;
-                if(cat === 'พะโล้' || cat === 'แม่แมว') claimQuest(3, 15);
+                if(cat === 'พะโล้' || cat === 'แม่แมว') completeQuest(3); // หมวดเฉพาะ
             }
             localStorage.setItem('mn_pocket_data', JSON.stringify(pocketData));
         }
 
-        claimQuest(1, 10); // First entry quest triggered (if not already claimed)
+        completeQuest(1); // บันทึกรายการแรก
         
         let reward = activePocket === 'katsu-chan' ? 15 : 10;
-        coins += reward; exp += 20;
-        if(exp >= 100) { level++; exp = 0; speak(`ยินดีด้วย เลเวล ${level} แล้ว!`); }
+        coins += reward; 
+        exp += 20;
+        
+        let foodSvg = getFoodSvg(exp);
+        let foodAnim = document.getElementById('food-animation');
+        foodAnim.innerHTML = foodSvg;
+        
+        foodAnim.style.animation = 'none';
+        foodAnim.offsetHeight; 
+        foodAnim.style.animation = 'dropEat 2s forwards ease-in';
+
+        let levelUpMsg = "";
+        if(exp >= 100) { level++; exp = 0; levelUpMsg = ` ยินดีด้วย เลเวล ${level} แล้ว!`; }
 
         localStorage.setItem('mn_coins', coins);
         localStorage.setItem('mn_exp', exp);
@@ -511,31 +633,13 @@
 
         document.getElementById('val-amount').value = '';
         document.getElementById('val-note').value = '';
-        speak(`บันทึกสำเร็จ ได้รับ +${reward} coins และ +20 exp`);
+        speak(`บันทึกสำเร็จ ได้รับ +${reward} coins และ +20 exp${levelUpMsg}`);
     }
 
-    function claimQuest(id, rewardCoins) {
-        const qCard = document.getElementById('q' + id);
-        const qBtn = document.getElementById('qbtn' + id);
-        if(!qCard || qCard.classList.contains('completed')) return;
-        
-        qCard.classList.add('completed');
-        qBtn.disabled = true;
-        qBtn.innerText = 'รับแล้ว';
-        coins += rewardCoins;
-        localStorage.setItem('mn_coins', coins);
-        updateUI();
-    }
-
-    /* GACHA & 30 SVG ITEMS SYSTEM */
-    const gachaItemsList = [
-        "พรมฟ้า", "พรมชมพู", "พรมม่วง", "พรมเขียว", "พรมเหลือง",
-        "เบาะฟ้า", "เบาะชมพู", "เบาะม่วง", "เบาะเขียว", "เบาะเหลือง",
-        "ต้นไม้ฟ้า", "ต้นไม้ชมพู", "ต้นไม้ม่วง", "ต้นไม้เขียว", "ต้นไม้เหลือง",
-        "โคมไฟฟ้า", "โคมไฟชมพู", "โคมไฟม่วง", "โคมไฟเขียว", "โคมไฟเหลือง",
-        "กรอบรูปฟ้า", "กรอบรูปชมพู", "กรอบรูปม่วง", "กรอบรูปเขียว", "กรอบรูปเหลือง",
-        "ดาวฟ้า", "ดาวชมพู", "ดาวม่วง", "ดาวเขียว", "ดาวเหลือง"
-    ];
+    const gachaColors = ["ฟ้า", "ชมพู", "ม่วง", "เขียว", "เหลือง"];
+    const gachaTypes = ["พรม", "เบาะ", "ต้นไม้", "โคมไฟ", "กรอบรูป", "ดาว"];
+    let gachaItemsList = [];
+    gachaColors.forEach(c => gachaTypes.forEach(t => gachaItemsList.push(t + c)));
 
     function getSvgForItem(name) {
         let color = "#fff";
@@ -545,12 +649,12 @@
         if(name.includes('เขียว')) color = "var(--green)";
         if(name.includes('เหลือง')) color = "var(--yellow)";
 
-        if(name.includes('พรม')) return `<svg width="24" height="14" viewBox="0 0 30 20"><ellipse cx="15" cy="10" rx="14" ry="8" fill="${color}" stroke="#5c4b37" stroke-width="1.5"/></svg>`;
-        if(name.includes('เบาะ')) return `<svg width="20" height="20" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="4" fill="${color}" stroke="#5c4b37" stroke-width="1.5"/></svg>`;
-        if(name.includes('ต้นไม้')) return `<svg width="18" height="24" viewBox="0 0 24 30"><path d="M12 18 L6 8 Q12 0 18 8 Z" fill="var(--green)" stroke="#5c4b37" stroke-width="1.5"/><rect x="8" y="18" width="8" height="10" fill="${color}" stroke="#5c4b37" stroke-width="1.5"/></svg>`;
-        if(name.includes('โคมไฟ')) return `<svg width="18" height="24" viewBox="0 0 24 30"><path d="M12 4 L4 18 L20 18 Z" fill="${color}" stroke="#5c4b37" stroke-width="1.5"/><rect x="11" y="18" width="2" height="10" fill="#5c4b37"/><rect x="7" y="26" width="10" height="4" fill="${color}" stroke="#5c4b37" stroke-width="1.5"/></svg>`;
-        if(name.includes('กรอบรูป')) return `<svg width="20" height="20" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" fill="${color}" stroke="#5c4b37" stroke-width="1.5"/><rect x="6" y="6" width="12" height="12" fill="#fff" stroke="#5c4b37" stroke-width="1"/></svg>`;
-        if(name.includes('ดาว')) return `<svg width="20" height="20" viewBox="0 0 24 24"><polygon points="12,2 15,9 22,9 16,14 18,21 12,17 6,21 8,14 2,9 9,9" fill="${color}" stroke="#5c4b37" stroke-width="1.5"/></svg>`;
+        if(name.includes('พรม')) return `<svg width="28" height="16" viewBox="0 0 30 20"><ellipse cx="15" cy="10" rx="14" ry="8" fill="${color}" stroke="#5c4b37" stroke-width="1.5"/></svg>`;
+        if(name.includes('เบาะ')) return `<svg width="24" height="24" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="4" fill="${color}" stroke="#5c4b37" stroke-width="1.5"/></svg>`;
+        if(name.includes('ต้นไม้')) return `<svg width="20" height="28" viewBox="0 0 24 30"><path d="M12 18 L6 8 Q12 0 18 8 Z" fill="var(--green)" stroke="#5c4b37" stroke-width="1.5"/><rect x="8" y="18" width="8" height="10" fill="${color}" stroke="#5c4b37" stroke-width="1.5"/></svg>`;
+        if(name.includes('โคมไฟ')) return `<svg width="20" height="28" viewBox="0 0 24 30"><path d="M12 4 L4 18 L20 18 Z" fill="${color}" stroke="#5c4b37" stroke-width="1.5"/><rect x="11" y="18" width="2" height="10" fill="#5c4b37"/><rect x="7" y="26" width="10" height="4" fill="${color}" stroke="#5c4b37" stroke-width="1.5"/></svg>`;
+        if(name.includes('กรอบรูป')) return `<svg width="24" height="24" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" fill="${color}" stroke="#5c4b37" stroke-width="1.5"/><rect x="6" y="6" width="12" height="12" fill="#fff" stroke="#5c4b37" stroke-width="1"/></svg>`;
+        if(name.includes('ดาว')) return `<svg width="24" height="24" viewBox="0 0 24 24"><polygon points="12,2 15,9 22,9 16,14 18,21 12,17 6,21 8,14 2,9 9,9" fill="${color}" stroke="#5c4b37" stroke-width="1.5"/></svg>`;
         return "";
     }
 
@@ -559,23 +663,22 @@
         document.getElementById('g-result').innerText = "กดปุ่มเพื่อหมุนกาชาปอง!";
         document.getElementById('g-capsule').style.display = 'none';
     }
-    function closeGacha() {
-        document.getElementById('gacha-overlay').style.display = 'none';
-    }
+    function closeGacha() { document.getElementById('gacha-overlay').style.display = 'none'; }
 
     function doSpin() {
         if(coins < 30) { document.getElementById('g-result').innerText = "coins ไม่พอจ้ะ"; return; }
         coins -= 30;
         localStorage.setItem('mn_coins', coins);
         updateUI();
-        claimQuest(5, 20); // trigger gacha quest
+        
+        completeQuest(5); // เควสกาชา
 
         document.getElementById('g-result').innerText = "กำลังสุ่ม...";
         const cap = document.getElementById('g-capsule');
         cap.style.display = 'block';
-        cap.style.top = '100px'; 
+        cap.style.top = '120px'; 
         
-        let spinInt = setInterval(() => { cap.style.background = ["var(--pink)","var(--blue)","var(--yellow)"][Math.floor(Math.random()*3)]; }, 100);
+        let spinInt = setInterval(() => { cap.style.background = ["var(--pink)","var(--blue)","var(--yellow)","var(--green)"][Math.floor(Math.random()*4)]; }, 100);
         
         setTimeout(() => {
             clearInterval(spinInt);
@@ -584,7 +687,7 @@
             localStorage.setItem('mn_inventory', JSON.stringify(inventory));
             document.getElementById('g-result').innerText = `ได้รับ: ${prize}!`;
             renderRoom();
-        }, 1000);
+        }, 1200);
     }
 
     function renderRoom() {
@@ -596,7 +699,6 @@
         document.getElementById('room-items-grid').innerHTML = html;
     }
 
-    /* Dashboard Charts */
     let expChartInstance = null;
     let cmpChartInstance = null;
 
@@ -608,23 +710,20 @@
         document.getElementById('sum-exp').innerText = tExp;
         document.getElementById('sum-sav').innerText = katsuSavings;
 
-        // Compare Chart (Bar)
         const ctx2 = document.getElementById('compareChart').getContext('2d');
         if(cmpChartInstance) cmpChartInstance.destroy();
         cmpChartInstance = new Chart(ctx2, {
             type: 'bar',
             data: {
-                labels: ['รายรับทั้งหมด', 'รายจ่ายทั้งหมด'],
+                labels: ['รายรับ', 'รายจ่าย'],
                 datasets: [{ data: [tInc, tExp], backgroundColor: ['#CBD83B', '#FFCBE1'], borderRadius: 6 }]
             },
-            options: { plugins: { legend: { display: false } }, maintainAspectRatio: false }
+            options: { plugins: { legend: { display: false } }, maintainAspectRatio: false, scales: { y: { beginAtZero: true } } }
         });
 
-        // Expense Breakdown (Donut)
         const ctx1 = document.getElementById('expenseChart').getContext('2d');
         if(expChartInstance) expChartInstance.destroy();
         
-        // รวมข้อมูล category 2 กระเป๋า
         let allCats = {};
         Object.keys(pocketData.min.cats).forEach(k => allCats[k] = (allCats[k]||0) + pocketData.min.cats[k]);
         Object.keys(pocketData.natsu.cats).forEach(k => allCats[k] = (allCats[k]||0) + pocketData.natsu.cats[k]);
