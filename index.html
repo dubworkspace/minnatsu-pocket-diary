@@ -2,269 +2,402 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>minnatsu pocket diary</title>
     <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        /* 🎨 1. Color Palette สไตล์ Animal Crossing ตามรีเควส */
-        :root {
-            --pink: #FFCBE1;
-            --yellow: #FFEB7A;
-            --purple: #D3B6F0;
-            --light-purple: #E5D8F2;
-            --blue: #A4D1F2;
-            --light-blue: #D0E6F7;
-            --green: #CBD83B;
-            --orange: #FEB700;
-            --light-orange: #FFE26F;
-            --text-color: #5c4b37;
-        }
-
-        * { box-sizing: border-box; font-family: 'Mitr', sans-serif; text-transform: lowercase; font-weight: 300; margin: 0; padding: 0; }
+        * { box-sizing: border-box; font-family: 'Mitr', sans-serif; text-transform: lowercase; font-weight: 300; }
         
+        /* 🌈 Background Theme: สีเหลืองครีม/ชมพูอ่อน ละมุนๆ */
         body {
-            background-color: var(--light-blue);
-            background-image: radial-gradient(var(--blue) 15%, transparent 16%);
+            background-color: #fff9f5;
+            background-image: radial-gradient(#ffe4e1 18%, transparent 19%);
             background-size: 26px 26px;
-            color: var(--text-color);
+            color: #5c4b37;
+            margin: 0;
+            padding: 24px 15px;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            overflow: hidden;
+            min-height: 100vh;
         }
 
         .game-card {
             background: #ffffff;
             width: 100%;
-            max-width: 420px;
-            height: 100%;
-            max-height: 850px;
-            border-radius: 24px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            border: 4px solid var(--purple);
-            display: flex;
-            flex-direction: column;
+            max-width: 450px;
+            border-radius: 40px;
+            box-shadow: 0 20px 45px rgba(255, 175, 204, 0.25);
+            border: 4px solid #ffe5ec;
+            overflow: hidden;
             position: relative;
         }
 
-        /* Top Bar */
+        /* Top Bar - 🍃 เขียวมิ้นต์อ่อน */
         .top-bar {
-            background-color: var(--blue);
-            padding: 12px 18px;
+            background-color: #dcf5e7;
+            padding: 16px 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 3px solid var(--purple);
+            border-bottom: 3px solid #b7e4c7;
         }
-        .app-title { font-size: 1.1rem; font-weight: 500; color: #fff; }
+        .app-title { font-size: 1.15rem; font-weight: 400; color: #407a52; margin: 0; }
         .status-badge {
-            background: #fff; padding: 4px 12px; border-radius: 20px; font-size: 0.85rem;
-            color: var(--orange); border: 2px solid var(--yellow); display: flex; align-items: center; gap: 4px;
+            background: #fff;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.88rem;
+            color: #ffb703;
+            box-shadow: inset 0 -2px 0 #fff0c2;
+            border: 2px solid #ffea99;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .bgm-btn { 
+            cursor: pointer; 
+            font-size: 0.82rem; 
+            user-select: none; 
+            background: #fff; 
+            padding: 6px 14px; 
+            border-radius: 18px; 
+            border: 2px solid #b7e4c7;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #407a52;
+            box-shadow: 0 2px 0 #b7e4c7;
         }
 
         /* EXP Bar & Level */
         .exp-zone {
-            background: var(--light-orange);
-            padding: 8px 18px;
+            background: #fffdf0;
+            padding: 10px 24px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             font-size: 0.8rem;
-            color: var(--text-color);
+            color: #d97724;
         }
-        .exp-bar-outer { flex: 1; height: 10px; background: #fff; border-radius: 10px; border: 1px solid var(--orange); }
-        .exp-bar-inner { height: 100%; width: 0%; background: var(--orange); border-radius: 10px; transition: width 0.3s; }
+        .exp-bar-outer {
+            flex: 1;
+            height: 12px;
+            background: #ffeedb;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #ffd6a5;
+        }
+        .exp-bar-inner {
+            height: 100%;
+            width: 30%;
+            background: linear-gradient(90deg, #ffea00, #ff9e00);
+            border-radius: 10px;
+            transition: width 0.3s;
+        }
 
-        /* Minnatsu Character Zone */
+        /* 👧🏻 Minnatsu Character Zone */
         .minnatsu-box {
-            background: var(--light-purple);
-            padding: 12px 18px;
+            background: #fff5f8;
+            padding: 18px 24px;
             display: flex;
             align-items: center;
-            gap: 14px;
+            gap: 16px;
+            border-bottom: 3px dashed #ffc8dd;
             position: relative;
         }
         .avatar-img {
-            width: 56px; height: 56px; background: #fff; border-radius: 50%; display: flex;
-            justify-content: center; align-items: center; border: 3px solid var(--purple); flex-shrink: 0;
+            width: 62px;
+            height: 62px;
+            background: #ffe8d6;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 3px solid #fff;
+            box-shadow: 0 5px 12px rgba(0,0,0,0.06);
+            flex-shrink: 0;
             animation: float 3s ease-in-out infinite;
         }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
-        
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+
         .speech-bubble {
-            background: #fff; padding: 10px 14px; border-radius: 18px; font-size: 0.85rem;
-            color: var(--text-color); border: 2px solid var(--purple); flex: 1; line-height: 1.4;
+            background: #fff;
+            padding: 12px 18px;
+            border-radius: 22px;
+            font-size: 0.88rem;
+            color: #5c4b37;
+            border: 2px solid #ffc8dd;
+            box-shadow: 0 4px 0 #ffafcc;
+            line-height: 1.45;
+            position: relative;
+            flex: 1;
         }
 
-        /* Nav Grid */
+        /* Nav Grid - 🌸 ชมพูนม / 🍃 เขียวมิ้นต์ */
         .nav-grid {
-            display: flex; background: #fff; padding: 8px; gap: 6px; border-bottom: 2px solid var(--light-purple);
+            display: flex;
+            background: #fffdf0;
+            padding: 10px;
+            gap: 8px;
+            border-bottom: 3px solid #ffea99;
         }
         .nav-item {
-            flex: 1; text-align: center; padding: 8px 0; font-size: 0.8rem; color: var(--text-color);
-            cursor: pointer; border-radius: 14px; background: var(--light-purple); border: 2px solid transparent; transition: 0.2s;
+            flex: 1;
+            text-align: center;
+            padding: 10px 4px;
+            font-size: 0.82rem;
+            color: #9c846f;
+            cursor: pointer;
+            border-radius: 18px;
+            background: #fff;
+            border: 2px solid #ffe5ec;
+            transition: 0.15s;
         }
-        .nav-item.active { background: var(--purple); color: #fff; font-weight: 500; }
+        .nav-item.active {
+            color: #fff;
+            background: #ffafcc; /* 🌸 ชมพูนม */
+            border-color: #ff85a1;
+            box-shadow: 0 4px 0 #e65c7b;
+        }
 
-        /* Screen Views (เลื่อนได้เฉพาะพื้นที่ตรงนี้) */
-        .view-screen { flex: 1; overflow-y: auto; padding: 18px; display: none; background: #fff; }
-        .view-screen::-webkit-scrollbar { display: none; }
+        /* Screen Views */
+        .view-screen { display: none; padding: 24px; }
         .view-screen.active { display: block; }
 
-        /* Pocket Selector */
-        .pocket-row { display: flex; gap: 8px; margin-bottom: 16px; }
+        /* 🩵 ฟ้า, 💜 ม่วง, 🍊 ส้ม (Pocket Selector) */
+        .pocket-row { display: flex; gap: 10px; margin-bottom: 20px; }
         .pocket-btn {
-            flex: 1; padding: 10px 4px; background: #fff; border: 2px solid var(--light-purple);
-            border-radius: 16px; font-size: 0.8rem; color: var(--text-color); cursor: pointer; text-align: center;
+            flex: 1;
+            padding: 11px 6px;
+            background: #fff;
+            border: 2px solid #eee0d3;
+            border-radius: 20px;
+            font-size: 0.82rem;
+            color: #8c7158;
+            cursor: pointer;
+            text-align: center;
+            box-shadow: 0 3px 0 #eee0d3;
+            transition: 0.1s;
         }
-        #p-min.active { background: var(--blue); border-color: var(--blue); color: #fff; }
-        #p-natsu.active { background: var(--purple); border-color: var(--purple); color: #fff; }
-        #p-katsu.active { background: var(--orange); border-color: var(--orange); color: #fff; }
+        /* สีแยกตามกระเป๋า */
+        #p-min.active { background: #a2d2ff; border-color: #8ebcf0; color: #fff; box-shadow: 0 4px 0 #6c9cd4; } /* 🩵 ฟ้า */
+        #p-natsu.active { background: #cdb4db; border-color: #bda0ce; color: #fff; box-shadow: 0 4px 0 #9c7bb0; } /* 💜 ม่วง */
+        #p-katsu.active { background: #ffb703; border-color: #fb8500; color: #fff; box-shadow: 0 4px 0 #d96f00; } /* 🍊 ส้ม */
 
         /* Input Form */
-        .form-group { display: flex; flex-direction: column; gap: 12px; }
-        .type-selector { display: flex; gap: 10px; }
+        .form-group { display: flex; flex-direction: column; gap: 16px; }
+        .type-selector { display: flex; gap: 12px; }
         .type-btn {
-            flex: 1; padding: 10px; border-radius: 14px; border: 2px solid var(--light-purple);
-            background: #fff; text-align: center; font-size: 0.85rem; cursor: pointer; color: var(--text-color);
+            flex: 1; padding: 10px; border-radius: 16px; border: 2px solid #ffe5ec;
+            background: #fff; text-align: center; font-size: 0.85rem; cursor: pointer; color: #8c7158;
         }
-        .type-btn.active-exp { background: var(--pink); color: var(--text-color); border-color: var(--pink); }
-        .type-btn.active-inc { background: var(--blue); color: var(--text-color); border-color: var(--blue); }
-        .type-btn.active-sav { background: var(--yellow); color: var(--text-color); border-color: var(--yellow); }
+        /* 🌸 ชมพู (รายจ่าย) / 🍃 เขียว (รายรับ) / 🍊 ส้ม (ออมเงิน) */
+        .type-btn.active-exp { background: #ffafcc; color: white; border-color: #ff85a1; box-shadow: 0 3px 0 #e65c7b; }
+        .type-btn.active-inc { background: #b7e4c7; color: white; border-color: #95d5b2; box-shadow: 0 3px 0 #74b492; }
+        .type-btn.active-sav { background: #ffb703; color: white; border-color: #fb8500; box-shadow: 0 3px 0 #d96f00; }
 
         .amount-field {
-            font-size: 2.2rem; text-align: right; color: var(--orange); background: #fff;
-            border: 3px solid var(--light-blue); border-radius: 20px; padding: 10px 18px; outline: none;
+            font-size: 2.4rem;
+            text-align: right;
+            color: #fb8500;
+            background: #fffefb;
+            border: 3px solid #ffe5ec;
+            border-radius: 24px;
+            padding: 12px 20px;
+            outline: none;
+            box-shadow: inset 0 3px 6px rgba(0,0,0,0.03);
         }
         .input-field {
-            padding: 12px 16px; border: 2px solid var(--light-blue); border-radius: 16px;
-            outline: none; font-size: 0.9rem; background: #fff; color: var(--text-color);
+            padding: 13px 18px;
+            border: 2px solid #ffe5ec;
+            border-radius: 18px;
+            outline: none;
+            font-size: 0.92rem;
+            background: #fffefb;
+            color: #6b533e;
         }
-        
-        /* 🟢 ปุ่มบันทึกสีเขียว */
-        .stamp-btn {
-            background: var(--green); color: #fff; border: none; padding: 14px;
-            border-radius: 20px; font-size: 1.1rem; font-weight: 500; cursor: pointer; 
-            box-shadow: 0 4px 0 #9ca82b; margin-top: 6px; transition: 0.1s; text-shadow: 0 1px 2px rgba(0,0,0,0.1);
-        }
-        .stamp-btn:active { transform: translateY(4px); box-shadow: none; }
 
-        /* 🍱 KATSU-CHAN ROOM (ลบกรอบน้ำตาล) */
+        /* 🍊 ปุ่ม Stamp ส้ม/เหลือง */
+        .stamp-btn {
+            background: #ffb703;
+            color: white;
+            border: 2px solid #fb8500;
+            padding: 15px;
+            border-radius: 24px;
+            font-size: 1.18rem;
+            cursor: pointer;
+            box-shadow: 0 5px 0 #d96f00;
+            transition: 0.1s;
+            margin-top: 6px;
+        }
+        .stamp-btn:active { transform: translateY(4px); box-shadow: 0 1px 0 #d96f00; }
+
+        /* 🍱 2D KATSU-CHAN ROOM */
         .katsu-room {
-            padding: 30px 15px; text-align: center; margin-bottom: 16px; position: relative;
-            background: var(--light-orange); border-radius: 24px; border: 3px solid var(--yellow);
+            padding: 35px 15px 25px 15px;
+            text-align: center;
+            margin-bottom: 20px;
+            position: relative;
         }
+
         .plate-base {
-            width: 170px; height: 50px; background: #ffffff; border-radius: 50%; margin: 0 auto;
-            position: relative; box-shadow: 0 8px 0 var(--orange); border: 2px solid var(--yellow);
-            display: flex; justify-content: center; align-items: center;
+            width: 190px;
+            height: 58px;
+            background: #ffffff;
+            border-radius: 50%;
+            margin: 0 auto;
+            position: relative;
+            box-shadow: 0 10px 0 #e8d7c3, inset 0 3px 0 #f5ebd9, 0 12px 20px rgba(0,0,0,0.06);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid #f4e6d4;
         }
+
         .cabbage-bed {
-            width: 140px; height: 35px; background: var(--green); border-radius: 50%;
-            position: absolute; top: -12px; border: 2px dashed #9ca82b;
+            width: 160px;
+            height: 42px;
+            background: #b7e4c7; /* 🍃 เขียวมิ้นต์ */
+            border-radius: 50%;
+            position: absolute;
+            top: -14px;
+            border: 2px dashed #95d5b2;
+            box-shadow: inset 0 2px 5px #74b492;
         }
+
         .tonkatsu-character {
-            width: 130px; height: 85px; background: var(--orange); border-radius: 40px 45px 30px 35px;
-            position: absolute; top: -70px; box-shadow: inset 0 -6px 0 #cc9200; cursor: pointer;
-            border: 3px solid #cc9200; transition: 0.3s;
+            width: 140px;
+            height: 94px;
+            background: linear-gradient(145deg, #f39c12 0%, #d35400 100%);
+            border-radius: 45px 50px 35px 40px;
+            position: absolute;
+            top: -76px;
+            box-shadow: inset 0 -6px 0 #962d00, 0 8px 16px rgba(138, 43, 6, 0.2);
+            cursor: pointer;
+            animation: breathe 2.5s infinite ease-in-out;
+            transition: all 0.3s;
+            border: 3px solid #f39c12;
         }
-        
-        /* 🚨 8. หิวโหย State (เกิน 7 วัน) */
-        .tonkatsu-character.hungry-state {
-            background: #e0e0e0; border-color: #999; box-shadow: inset 0 -6px 0 #888;
-            animation: hungryShiver 0.5s infinite;
+
+        /* Danger State: หมูเกรียม 2D */
+        .tonkatsu-character.burnt-state {
+            background: linear-gradient(145deg, #3d3535 0%, #1f1818 100%) !important;
+            border-color: #120c0c !important;
+            box-shadow: inset 0 -6px 0 #000 !important;
+            animation: burntShake 0.4s infinite ease-in-out !important;
         }
-        @keyframes hungryShiver { 0%,100%{transform:translateX(0);} 50%{transform:translateX(-3px);} }
+        @keyframes burntShake { 
+            0%, 100% { transform: translateY(0) rotate(0deg); } 
+            25% { transform: translateY(-2px) rotate(-3deg); } 
+            75% { transform: translateY(2px) rotate(3deg); } 
+        }
+
+        .smoke-puff {
+            display: none;
+            position: absolute;
+            top: -30px;
+            left: 50px;
+            animation: smokeRise 1.5s infinite ease-out;
+            z-index: 10;
+        }
+        .burnt-state .smoke-puff { display: block; }
+        @keyframes smokeRise { 
+            0% { opacity: 0; transform: translateY(0) scale(0.6); } 
+            50% { opacity: 0.8; } 
+            100% { opacity: 0; transform: translateY(-24px) scale(1.2); } 
+        }
 
         .panko-flakes {
             position: absolute; width: 100%; height: 100%; top:0; left:0; border-radius: inherit;
-            background-image: radial-gradient(var(--yellow) 15%, transparent 20%), radial-gradient(#ffd043 15%, transparent 20%);
-            background-size: 16px 16px, 22px 22px; opacity: 0.9;
+            background-image: radial-gradient(#ffe066 15%, transparent 20%), radial-gradient(#f4a261 15%, transparent 20%);
+            background-size: 16px 16px, 22px 22px; opacity: 0.85;
         }
-        .face-eyes { display: flex; justify-content: space-between; width: 48px; position: absolute; top: 35px; left: 40px; z-index: 5; }
-        .eye { width: 7px; height: 9px; background: #333; border-radius: 50%; }
-        .hungry-state .eye { height: 4px; border-radius: 2px; } /* ตาหรี่ตอนหิว */
-        .cheeks { display: flex; justify-content: space-between; width: 66px; position: absolute; top: 42px; left: 31px; z-index: 5; }
-        .cheek { width: 12px; height: 7px; background: var(--pink); border-radius: 50%; opacity: 0.9; }
-        .hungry-state .cheek { opacity: 0.2; } /* แก้มซีดตอนหิว */
+
+        .sauce-drizzle {
+            position: absolute; width: 94px; height: 44px; top: 12px; left: 22px;
+            background: #5c1d06; border-radius: 14px; opacity: 0.9; transform: rotate(-8deg);
+        }
+
+        .ear-left, .ear-right {
+            width: 24px; height: 24px; background: #e67e22; position: absolute; top: -9px;
+            border-radius: 8px 16px 4px 12px; border: 2px solid #b05309;
+        }
+        .ear-left { left: 16px; transform: rotate(-18deg); }
+        .ear-right { right: 16px; transform: rotate(18deg) scaleX(-1); }
+
+        .face-eyes { display: flex; justify-content: space-between; width: 52px; position: absolute; top: 38px; left: 43px; z-index: 5; }
+        .eye { width: 8px; height: 10px; background: #2b1810; border-radius: 50%; box-shadow: 0 0 0 1px #fff; }
+        .cheeks { display: flex; justify-content: space-between; width: 72px; position: absolute; top: 46px; left: 33px; z-index: 5; }
+        .cheek { width: 13px; height: 8px; background: #ff758f; border-radius: 50%; opacity: 0.85; }
+
         .snout {
-            width: 24px; height: 16px; background: #ffccbc; border-radius: 12px;
-            position: absolute; top: 38px; left: 52px; border: 2px solid #ff8a65;
+            width: 26px; height: 17px; background: #ffb5a7; border-radius: 12px;
+            position: absolute; top: 43px; left: 56px; border: 2px solid #f87171;
             display: flex; justify-content: center; align-items: center; gap: 4px; z-index: 5;
         }
-        .nostril { width: 3px; height: 5px; background: #d84315; border-radius: 2px; }
+        .nostril { width: 3px; height: 5px; background: #e63946; border-radius: 2px; }
 
-        /* 🍱 9. Food Animation Container */
-        .food-drop {
-            position: absolute; top: -60px; left: 45px; z-index: 20; opacity: 0; pointer-events: none;
-        }
-        @keyframes dropEat { 
-            0% { transform: translateY(-30px); opacity: 1; } 
-            50% { transform: translateY(40px); opacity: 1; } 
-            100% { transform: translateY(40px) scale(0); opacity: 0; } 
-        }
+        @keyframes breathe { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
 
-        /* 🎁 4. GACHA OVERLAY (No Emoji, SVG Machine) */
-        #gacha-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(255, 255, 255, 0.95); z-index: 100; display: none;
-            flex-direction: column; justify-content: center; align-items: center;
-        }
-        .gacha-machine {
-            width: 180px; height: 240px; background: var(--pink); border-radius: 90px 90px 20px 20px;
-            border: 4px solid var(--purple); position: relative; display: flex; flex-direction: column; align-items: center;
-            box-shadow: 0 10px 0 var(--light-purple);
-        }
-        .gacha-glass { 
-            width: 150px; height: 130px; background: #fff; border-radius: 75px 75px 20px 20px; 
-            margin-top: 15px; border: 3px solid var(--purple); position: relative; overflow: hidden; 
-        }
-        .gacha-knob { 
-            width: 45px; height: 45px; background: var(--yellow); border-radius: 50%; 
-            margin-top: 20px; border: 3px solid var(--purple); cursor: pointer; box-shadow: 0 4px 0 #cc9200;
-        }
-        .gacha-knob:active { transform: rotate(45deg); }
-        
-        .gacha-capsule {
-            width: 40px; height: 40px; background: var(--blue); border-radius: 50%; position: absolute;
-            border: 3px solid var(--purple); display: none; z-index: 5;
-        }
-        .gacha-result { margin-top: 25px; font-size: 1.1rem; color: var(--purple); font-weight: 500; text-align: center; }
-        
-        /* Room Items Grid */
-        #room-items-grid { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 15px; }
-        .svg-item-icon { 
-            display: inline-flex; justify-content: center; align-items: center; padding: 6px; 
-            background: #fff; border-radius: 12px; border: 2px solid var(--yellow); box-shadow: 0 3px 0 var(--light-orange); 
-        }
+        .item-tag { display: inline-block; background: #fff; padding: 7px 16px; border-radius: 18px; font-size: 0.82rem; margin: 4px; border: 2px solid #ffe5ec; color: #7a5c3e; box-shadow: 0 2px 4px rgba(0,0,0,0.03); }
 
-        /* 📜 5. Quest List (No Emoji) */
-        .quest-list { display: flex; flex-direction: column; gap: 10px; }
+        /* 📜 Daily Quests Redesign */
+        .quest-list { display: flex; flex-direction: column; gap: 14px; }
         .quest-card {
-            background: #fff; border: 2px solid var(--pink); padding: 14px;
-            border-radius: 16px; display: flex; justify-content: space-between;
-            align-items: center; font-size: 0.85rem; box-shadow: 0 3px 0 var(--light-pink); transition: 0.2s;
+            background: #fff; border: 2px solid #ffc8dd; padding: 16px 18px;
+            border-radius: 22px; display: flex; justify-content: space-between;
+            align-items: center; font-size: 0.88rem; box-shadow: 0 4px 0 #ffc8dd; color: #5c4b37;
         }
-        .quest-card.completed { background: var(--light-blue); border-color: var(--blue); box-shadow: none; opacity: 0.8; }
-        
-        .quest-claim-btn { 
-            border: none; padding: 6px 12px; border-radius: 10px; font-size: 0.8rem; cursor: pointer; font-weight: 400; transition: 0.2s;
+        .quest-card.completed { background: #dcf5e7; border-color: #b7e4c7; box-shadow: 0 4px 0 #95d5b2; opacity: 0.85; }
+        .quest-claim-btn {
+            background: #ffb703; color: white; border: none; padding: 6px 14px;
+            border-radius: 14px; font-size: 0.8rem; cursor: pointer; box-shadow: 0 3px 0 #fb8500;
         }
-        .quest-claim-btn.locked { background: #eee; color: #aaa; cursor: not-allowed; box-shadow: none; }
-        .quest-claim-btn.ready { background: var(--green); color: #fff; box-shadow: 0 3px 0 #9ca82b; cursor: pointer; }
-        .quest-claim-btn.claimed { background: var(--light-purple); color: var(--text-color); box-shadow: none; cursor: default; }
+        .quest-claim-btn:disabled { background: #b7e4c7; color: #407a52; box-shadow: none; cursor: default; }
+        .quest-reward { color: #ffb703; font-weight: 500; }
 
-        /* 📊 6. Dashboard (เห็นทั้งรับและจ่าย) */
-        .dash-summary { display: flex; gap: 8px; margin-bottom: 16px; }
-        .summary-box { flex: 1; background: #fff; padding: 12px 8px; border-radius: 16px; text-align: center; border: 2px solid; }
-        .summary-box .val { font-size: 1.1rem; font-weight: 500; color: var(--text-color); margin-top: 4px; }
-        .summary-box .lbl { font-size: 0.75rem; color: var(--text-color); }
-        
-        .chart-box { background: #fff; border: 2px solid var(--light-purple); border-radius: 18px; padding: 12px; margin-bottom: 16px; }
-        .chart-row { display: flex; gap: 10px; }
-        .chart-col { flex: 1; }
+        /* 📊 Dashboard Separated Pocket Tabs & Analytics */
+        .dash-pocket-tabs { display: flex; gap: 10px; margin-bottom: 20px; }
+        .dash-tab {
+            flex: 1; padding: 10px; text-align: center; border-radius: 16px;
+            border: 2px solid #ffe5ec; background: #fff; font-size: 0.85rem; cursor: pointer; color: #8c7158;
+        }
+        /* สีแยกกระเป๋าในหน้า Dashboard */
+        #tab-dash-min.active { background: #a2d2ff; color: white; border-color: #8ebcf0; box-shadow: 0 3px 0 #6c9cd4; }
+        #tab-dash-natsu.active { background: #cdb4db; color: white; border-color: #bda0ce; box-shadow: 0 3px 0 #9c7bb0; }
+
+        .fat-pig-box {
+            background: #fffbf5;
+            border: 3px dashed #ffc8dd;
+            border-radius: 26px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 22px;
+        }
+        .fat-pig-stage {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 25px 0 15px 0;
+            height: 80px;
+        }
+
+        .chart-container-box {
+            background: #fff;
+            border: 2px solid #ffe5ec;
+            border-radius: 22px;
+            padding: 16px;
+            margin-bottom: 18px;
+            box-shadow: 0 4px 0 #ffe5ec;
+        }
+
+        .floating-text {
+            position: absolute; color: #ff85a1; font-size: 1.15rem; font-weight: 500;
+            animation: floatUp 1s forwards ease-out; pointer-events: none; z-index: 100;
+        }
+        @keyframes floatUp { 0% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; transform: translateY(-40px); } }
     </style>
 </head>
 <body>
@@ -272,46 +405,67 @@
 <div class="game-card">
     <!-- Top Bar -->
     <div class="top-bar">
-        <h1 class="app-title">minnatsu diary</h1>
+        <h1 class="app-title">minnatsu pocket diary</h1>
         <div class="status-badge">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--orange)"><circle cx="12" cy="12" r="10"/></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffb703"><circle cx="12" cy="12" r="10"/><path d="M12 6v12M9 9h6M9 15h6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
             <span id="coin-txt">0</span> coins
+        </div>
+        <div class="bgm-btn" onclick="toggleBGM()" id="bgm-txt">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#407a52" stroke-width="2" stroke-linecap="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+            bgm: off
         </div>
     </div>
 
     <!-- EXP Bar -->
     <div class="exp-zone">
         <span>lv.<span id="level-txt">1</span></span>
-        <div class="exp-bar-outer"><div class="exp-bar-inner" id="exp-fill"></div></div>
+        <div class="exp-bar-outer">
+            <div class="exp-bar-inner" id="exp-fill"></div>
+        </div>
         <span><span id="exp-txt">0</span>/100 exp</span>
     </div>
 
-    <!-- 👧🏻 Minnatsu Character -->
+    <!-- 👧🏻 Cute Redesigned Minnatsu Character Zone -->
     <div class="minnatsu-box">
         <div class="avatar-img">
-            <svg width="44" height="44" viewBox="0 0 40 40" fill="none">
-                <circle cx="20" cy="20" r="16" fill="#ffe2d1"/>
-                <path d="M6 18C6 10 11 6 20 6C29 6 34 10 34 18V24C34 26 32 27 31 25C30 23 29 20 29 18C29 12 25 8 20 8C15 8 11 12 11 18C11 20 10 23 9 25C8 27 6 26 6 24V18Z" fill="#7a5129"/>
-                <path d="M12 13C15 15 18 15 20 13C22 15 25 15 28 13C27 10 24 8 20 8C16 8 13 10 12 13Z" fill="#5c3b1e"/>
-                <path d="M10 9C9 7 12 6 13 8C14 6 17 7 16 9C15 10 11 10 10 9Z" fill="var(--blue)"/>
-                <circle cx="14" cy="20" r="2.2" fill="#2d1c10"/>
-                <circle cx="26" cy="20" r="2.2" fill="#2d1c10"/>
-                <circle cx="10" cy="23" r="3.5" fill="var(--pink)"/>
-                <circle cx="30" cy="23" r="3.5" fill="var(--pink)"/>
-                <path d="M17 24C17 24 18.5 26 20 26C21.5 26 23 24 23 24" stroke="#d95d39" stroke-width="1.8" stroke-linecap="round"/>
+            <svg width="48" height="48" viewBox="0 0 44 44" fill="none">
+                <!-- หูและใบหน้า -->
+                <circle cx="22" cy="22" r="17" fill="#ffe2d1"/>
+                <circle cx="5" cy="22" r="3" fill="#ffd0bb"/>
+                <circle cx="39" cy="22" r="3" fill="#ffd0bb"/>
+                
+                <!-- ผมสั้นบ๊อบ & หน้าม้าพร้อมโบว์ -->
+                <path d="M7 20C7 11 12 7 22 7C32 7 37 11 37 20V26C37 28 35 29 34 27C33 25 32 22 32 20C32 13 28 9 22 9C16 9 12 13 12 20C12 22 11 25 10 27C9 29 7 28 7 26V20Z" fill="#523927"/>
+                <path d="M13 14C16 16 19 16 22 14C25 16 28 16 31 14C30 11 27 9 22 9C17 9 14 11 13 14Z" fill="#3b2618"/>
+                
+                <!-- โบว์จิ๋วติดผม (ชมพู) -->
+                <path d="M11 10C10 8 13 7 14 9C15 7 18 8 17 10C16 11 12 11 11 10Z" fill="#ffafcc"/>
+
+                <!-- ตาโตยิ้มสดใส -->
+                <circle cx="16" cy="22" r="2.4" fill="#25160c"/>
+                <circle cx="28" cy="22" r="2.4" fill="#25160c"/>
+                <circle cx="16.9" cy="21.1" r="0.9" fill="#fff"/>
+                <circle cx="28.9" cy="21.1" r="0.9" fill="#fff"/>
+                
+                <!-- แก้มกลมอมชมพูสดใส -->
+                <circle cx="12" cy="25" r="3.8" fill="#ff8ba7" opacity="0.65"/>
+                <circle cx="32" cy="25" r="3.8" fill="#ff8ba7" opacity="0.65"/>
+                
+                <!-- รอยยิ้มหวานสดใส -->
+                <path d="M19 26C19 26 20.5 28 22 28C23.5 28 25 26 25 26" stroke="#d95d39" stroke-width="2" stroke-linecap="round"/>
             </svg>
         </div>
         <div class="speech-bubble" id="speech-txt">
-            ยินดีต้อนรับจ้ะ (บันทึก 1 ครั้ง ได้ +20 exp ครบ 100 แล้วคัตสึจังจะได้กินของอร่อยและเลเวลอัปด้วยนะ!)
+            こんにちは ! minnatsu มาแล้วงับ ˖Ი𐑼⋆
         </div>
     </div>
 
     <!-- Navigation -->
     <div class="nav-grid">
-        <div class="nav-item active" onclick="switchNav('entry')" id="nav-entry">บันทึก</div>
-        <div class="nav-item" onclick="switchNav('room')" id="nav-room">ห้องคัตสึ</div>
-        <div class="nav-item" onclick="switchNav('quests')" id="nav-quests">เควส</div>
-        <div class="nav-item" onclick="switchNav('dashboard')" id="nav-dashboard">สรุป</div>
+        <div class="nav-item active" onclick="switchNav('entry')" id="nav-entry">fast entry</div>
+        <div class="nav-item" onclick="switchNav('room')" id="nav-room">katsu-chan room</div>
+        <div class="nav-item" onclick="switchNav('quests')" id="nav-quests">daily quests</div>
+        <div class="nav-item" onclick="switchNav('dashboard')" id="nav-dashboard">dashboard</div>
     </div>
 
     <!-- SCREEN 1: Fast Entry -->
@@ -323,153 +477,180 @@
         </div>
 
         <div class="form-group">
+            <!-- ปุ่มสลับ รายรับ/รายจ่าย (ซ่อนเมื่อเลือก katsu-chan) -->
             <div class="type-selector" id="type-selector-box">
                 <div class="type-btn active-exp" id="btn-expense" onclick="setType('expense')">รายจ่าย</div>
                 <div class="type-btn" id="btn-income" onclick="setType('income')">รายรับ</div>
             </div>
+
+            <!-- แสดงโหมดเฉพาะออมเงินเมื่อเลือก katsu-chan -->
             <div class="type-selector" id="saving-only-box" style="display: none;">
-                <!-- ไม่มีอิโมจิในปุ่มออมเงิน -->
-                <div class="type-btn active-sav" style="width:100%;">ออมเงิน</div>
+                <div class="type-btn active-sav" style="width:100%;">ออมเงิน 🐖✨</div>
             </div>
 
-            <input type="number" id="val-amount" class="amount-field" placeholder="0" autofocus>
+            <input type="number" id="val-amount" class="amount-field" placeholder="0.00" autofocus>
             <input type="date" id="val-date" class="input-field">
-            <input type="text" id="val-note" class="input-field" placeholder="บันทึกย่อ..." oninput="autoPredictCat()">
+            <input type="text" id="val-note" class="input-field" placeholder="note (e.g. พะโล้, เงินเดือน)..." oninput="autoPredictCat()">
             
             <select id="val-category" class="input-field">
-                <option value="กิน">กิน</option>
-                <option value="พะโล้">พะโล้</option>
-                <option value="ต้วนถั่ว">ต้วนถั่ว</option>
-                <option value="แม่แมว">แม่แมว</option>
-                <option value="เน็ตฟลิก/สปตฟ">เน็ตฟลิก/สปตฟ</option>
-                <option value="รักษา">รักษา</option>
-                <option value="ตามใจ">ตามใจ</option>
-                <option value="ใช้ทั่วไป">ใช้ทั่วไป</option>
+                <option value="กิน">🥕 กิน </option>
+                <option value="พะโล้">🚌 พะโล้</option>
+                <option value="ต้วนถั่ว">🛵 ต้วนถั่ว</option>
+                <option value="เมื่อเป็นแม่แมว">🐈‍⬛ เมื่อเป็นแม่แมว</option>
+                <option value="เน็ตฟลิก/สปตฟ">🎧 เน็ตฟลิก/สปตฟ</option>
+                <option value="takecare">💉 takecare</option>
+                <option value="wishlist">🪄 wish list</option>
+                <option value="ใช้จ่าย">🧺 ใช้จ่าย</option>
+                <option value="ออมเงิน" id="opt-saving" style="display: none;">🐷 ออมเงิน</option>
             </select>
 
-            <!-- 🟢 ปุ่มบันทึกสีเขียว -->
-            <button class="stamp-btn" onclick="saveRecord()">บันทึกข้อมูล</button>
+            <button class="stamp-btn" onclick="saveRecord()">stamp!</button>
         </div>
     </div>
 
     <!-- SCREEN 2: katsu-chan room -->
     <div class="view-screen" id="view-room">
-        <div class="katsu-room">
-            <div style="height: 50px;"></div>
+        <div class="katsu-room" id="room-box">
+            <div style="height: 70px;"></div>
             <div class="plate-base">
                 <div class="cabbage-bed"></div>
-                <div class="tonkatsu-character" id="katsu-char" onclick="pokePiggy(event)">
-                    <!-- จุดปล่อยแอนิเมชันอาหาร -->
-                    <div id="food-animation" class="food-drop"></div>
-                    
+                <div class="tonkatsu-character" id="tonkatsu-pig" onclick="pokePiggy(event)">
+                    <div class="smoke-puff">
+                        <svg width="40" height="30" viewBox="0 0 40 30" fill="none">
+                            <circle cx="12" cy="18" r="8" fill="#d6ccc2" opacity="0.8"/>
+                            <circle cx="24" cy="12" r="10" fill="#e3d5ca" opacity="0.8"/>
+                            <circle cx="32" cy="20" r="6" fill="#d6ccc2" opacity="0.8"/>
+                        </svg>
+                    </div>
                     <div class="panko-flakes"></div>
+                    <div class="sauce-drizzle"></div>
+                    <div class="ear-left"></div><div class="ear-right"></div>
                     <div class="face-eyes"><div class="eye"></div><div class="eye"></div></div>
                     <div class="cheeks"><div class="cheek"></div><div class="cheek"></div></div>
                     <div class="snout"><div class="nostril"></div><div class="nostril"></div></div>
                 </div>
             </div>
-            <div style="font-size: 0.85rem; color: var(--text-color); margin-top: 15px;">ห้องของ katsu-chan</div>
-            <div id="room-items-grid"></div>
+            <div style="font-size: 0.95rem; color: #8a5a29; margin-top: 18px; font-weight: 400;">katsu-chan's room</div>
+            <div id="room-items" style="margin-top: 10px;">
+                <span class="item-tag">พรมหญ้าพาสเทล</span>
+            </div>
         </div>
-        <button class="stamp-btn" style="width:100%; background: var(--purple); box-shadow: 0 4px 0 #b38bd8;" onclick="openGacha()">หมุนกาชาปอง (30 coins)</button>
+
+        <div style="display: flex; gap: 10px; margin-bottom: 8px;">
+            <button class="stamp-btn" style="flex:1; background: #b7e4c7; border-color: #95d5b2; color: #2d6a4f; box-shadow: 0 4px 0 #74b492;" onclick="spinGacha()">หมุนกาชาปอง (30 coins)</button>
+            <button class="stamp-btn" style="background: #ffc8dd; border-color: #ffafcc; color: #e65c7b; box-shadow: 0 4px 0 #ff85a1; font-size: 0.85rem;" onclick="toggleDangerPreview()">preview danger</button>
+        </div>
     </div>
 
-    <!-- SCREEN 3: Daily Quest System (No Emoji) -->
+    <!-- SCREEN 3: Daily Quest System -->
     <div class="view-screen" id="view-quests">
-        <p style="font-size: 0.8rem; text-align: center; margin-bottom: 12px; color: var(--text-color);">ทำเงื่อนไขให้สำเร็จเพื่อกดรับรางวัล</p>
-        <div class="quest-list" id="quest-container-ui">
-            <!-- Render via JS -->
+        <p style="font-size: 0.82rem; margin-top:0; color: #9c7147; text-align: center;">ทำเควสประจำวันเพื่อเก็บ Coins อัปเลเวลกันงับ!</p>
+        <div class="quest-list">
+            <div class="quest-card" id="q1">
+                <div>
+                    <div>📌 บันทึกรายการแรกของวัน</div>
+                    <div style="font-size:0.75rem; color:#ffb703;">รางวัล: +10 coins</div>
+                </div>
+                <button class="quest-claim-btn" id="qbtn1" onclick="claimQuest(1, 10)">claim</button>
+            </div>
+            <div class="quest-card" id="q2">
+                <div>
+                    <div>🐖 ออมเงินใส่ katsu-chan</div>
+                    <div style="font-size:0.75rem; color:#ffb703;">รางวัล: +15 coins</div>
+                </div>
+                <button class="quest-claim-btn" id="qbtn2" onclick="claimQuest(2, 15)">claim</button>
+            </div>
+            <div class="quest-card" id="q3">
+                <div>
+                    <div>🐈‍⬛ บันทึกหมวดแม่แมวหรือพะโล้</div>
+                    <div style="font-size:0.75rem; color:#ffb703;">รางวัล: +20 coins</div>
+                </div>
+                <button class="quest-claim-btn" id="qbtn3" onclick="claimQuest(3, 20)">claim</button>
+            </div>
         </div>
     </div>
 
-    <!-- SCREEN 4: Dashboard (รายรับ & รายจ่ายชัดเจน) -->
+    <!-- SCREEN 4: Dashboard -->
     <div class="view-screen" id="view-dashboard">
-        <div class="dash-summary">
-            <div class="summary-box" style="border-color:var(--blue); background: var(--light-blue);">
-                <div class="lbl">รายรับทั้งหมด</div><div class="val" id="sum-inc">0</div>
+        <!-- 🐖 katsu-chan Fatness Level Box -->
+        <div class="fat-pig-box">
+            <div style="font-size: 0.9rem; color: #8a5a29; font-weight: 400;">ระดับความอ้วนท้วนของ katsu-chan</div>
+            <div class="fat-pig-stage">
+                <!-- เวกเตอร์ 2D ดีไซน์เดียวกับหน้า room -->
+                <div id="dash-fat-pig" style="position: relative; transition: transform 0.4s ease; transform-origin: center bottom;">
+                    <div class="tonkatsu-character" style="position: relative; top: 0; transform: scale(0.85); animation: none; cursor: default;">
+                        <div class="panko-flakes"></div>
+                        <div class="sauce-drizzle"></div>
+                        <div class="ear-left"></div><div class="ear-right"></div>
+                        <div class="face-eyes"><div class="eye"></div><div class="eye"></div></div>
+                        <div class="cheeks"><div class="cheek"></div><div class="cheek"></div></div>
+                        <div class="snout"><div class="nostril"></div><div class="nostril"></div></div>
+                    </div>
+                </div>
             </div>
-            <div class="summary-box" style="border-color:var(--pink); background: var(--pink);">
-                <div class="lbl">รายจ่ายทั้งหมด</div><div class="val" id="sum-exp">0</div>
-            </div>
-            <div class="summary-box" style="border-color:var(--orange); background: var(--light-orange);">
-                <div class="lbl">เงินออม (katsu)</div><div class="val" id="sum-sav">0</div>
+            <div style="font-size: 0.88rem; color: #b86217; margin-top: 10px;">
+                ยอดเงินออมสะสม: <b id="dash-savings-val">0</b> ฿
             </div>
         </div>
 
-        <div class="chart-box">
-            <div style="font-size:0.8rem; text-align:center; margin-bottom:8px;">สัดส่วนรายรับ vs รายจ่าย</div>
-            <canvas id="compareChart" style="max-height: 120px;"></canvas>
+        <!-- 📊 Separated Pocket Tabs & Advanced Analytics -->
+        <div class="dash-pocket-tabs">
+            <div class="dash-tab active" id="tab-dash-min" onclick="switchDashPocket('min')">min pocket</div>
+            <div class="dash-tab" id="tab-dash-natsu" onclick="switchDashPocket('natsu')">natsu pocket</div>
         </div>
-        
-        <div class="chart-row">
-            <div class="chart-box chart-col">
-                <div style="font-size:0.75rem; text-align:center; margin-bottom:4px;">สัดส่วนรายรับ</div>
-                <canvas id="incomeChart" style="max-height: 120px;"></canvas>
-            </div>
-            <div class="chart-box chart-col">
-                <div style="font-size:0.75rem; text-align:center; margin-bottom:4px;">สัดส่วนรายจ่าย</div>
-                <canvas id="expenseChart" style="max-height: 120px;"></canvas>
-            </div>
-        </div>
-    </div>
 
-    <!-- Gacha Overlay (SVG Machine, No Emoji) -->
-    <div id="gacha-overlay">
-        <div class="gacha-machine">
-            <div class="gacha-glass">
-                <div style="width:24px;height:24px;background:var(--blue);border-radius:50%;position:absolute;bottom:10px;left:25px;border:2px solid var(--purple)"></div>
-                <div style="width:24px;height:24px;background:var(--yellow);border-radius:50%;position:absolute;bottom:15px;right:30px;border:2px solid var(--purple)"></div>
-                <div style="width:24px;height:24px;background:var(--green);border-radius:50%;position:absolute;bottom:5px;left:60px;border:2px solid var(--purple)"></div>
-                <div style="width:24px;height:24px;background:var(--orange);border-radius:50%;position:absolute;bottom:25px;left:45px;border:2px solid var(--purple)"></div>
-            </div>
-            <div class="gacha-knob" onclick="doSpin()"></div>
+        <!-- Chart 1: สัดส่วนรายจ่ายตามหมวดหมู่ -->
+        <div class="chart-container-box">
+            <canvas id="expenseChart" style="max-height: 180px;"></canvas>
         </div>
-        <div class="gacha-capsule" id="g-capsule"></div>
-        <div class="gacha-result" id="g-result">กดปุ่มสีส้มเพื่อหมุนกาชาปอง!</div>
-        <button class="stamp-btn" style="margin-top:24px; background:var(--blue); box-shadow: 0 4px 0 #7caad1;" onclick="closeGacha()">ปิดหน้าต่าง</button>
+
+        <!-- Chart 2: เปรียบเทียบ รายรับ vs รายจ่าย -->
+        <div class="chart-container-box">
+            <canvas id="compareChart" style="max-height: 160px;"></canvas>
+        </div>
+
+        <button class="stamp-btn" style="width:100%; background:#b7e4c7; border-color: #95d5b2; color: #2d6a4f; box-shadow:0 5px 0 #74b492;" onclick="exportBackup()">save point (backup data)</button>
     </div>
 </div>
 
+<audio id="bgm-player" loop src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3"></audio>
+
 <script>
-    const GAS_URL = "YOUR_APP_SCRIPT_URL_HERE"; 
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbwGJX0Xw93UzUyAOEePWmNiAmRJdvzimIAWMKhD18ZFCgE2ax0xTBDFHfJOZ_nDsACjEQ/exec";
 
     let activePocket = 'min';
+    let dashActivePocket = 'min';
     let transactionType = 'expense';
+    let isPreviewDanger = false;
+
     let coins = localStorage.getItem('mn_coins') ? parseInt(localStorage.getItem('mn_coins')) : 0;
     let exp = localStorage.getItem('mn_exp') ? parseInt(localStorage.getItem('mn_exp')) : 0;
     let level = localStorage.getItem('mn_level') ? parseInt(localStorage.getItem('mn_level')) : 1;
     
-    // โครงสร้างข้อมูล รองรับแยกหมวดหมู่รายรับและรายจ่าย
+    // ข้อมูลแยกกระเป๋า min และ natsu
     let pocketData = JSON.parse(localStorage.getItem('mn_pocket_data') || JSON.stringify({
-        min: { income: 0, expense: 0, expCats: {}, incCats: {} },
-        natsu: { income: 0, expense: 0, expCats: {}, incCats: {} }
+        min: { income: 0, expense: 0, cats: { 'กิน': 0, 'พะโล้': 0, 'เมื่อเป็นแม่แมว': 0, 'wishlist': 0, 'ใช้จ่าย': 0 } },
+        natsu: { income: 0, expense: 0, cats: { 'กิน': 0, 'พะโล้': 0, 'เมื่อเป็นแม่แมว': 0, 'wishlist': 0, 'ใช้จ่าย': 0 } }
     }));
-    
-    let katsuSavings = localStorage.getItem('mn_katsu_savings') ? parseFloat(localStorage.getItem('mn_katsu_savings')) : 0;
-    let inventory = JSON.parse(localStorage.getItem('mn_inventory') || '[]');
-    let lastEntryTime = localStorage.getItem('mn_last_entry') ? parseInt(localStorage.getItem('mn_last_entry')) : Date.now();
 
-    /* --- REAL QUEST TRACKING SYSTEM --- */
-    const todayStr = new Date().toDateString();
-    let qData = JSON.parse(localStorage.getItem('mn_quest_data') || '{}');
-    if (qData.date !== todayStr) {
-        qData = { date: todayStr, q1: 0, q2: 0, q3: 0, q4: 0, q5: 0, q6: 0 };
-        localStorage.setItem('mn_quest_data', JSON.stringify(qData));
+    let katsuSavings = localStorage.getItem('mn_katsu_savings') ? parseFloat(localStorage.getItem('mn_katsu_savings')) : 0;
+    let inventory = JSON.parse(localStorage.getItem('mn_inventory') || '["พรมหญ้าพาสเทล"]');
+    let isBgmPlaying = false;
+
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    function playBeep(freq = 440, type = 'sine', duration = 0.1) {
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type; osc.frequency.value = freq;
+        gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
+        osc.connect(gain); gain.connect(audioCtx.destination);
+        osc.start(); osc.stop(audioCtx.currentTime + duration);
     }
-    const questDetails = [
-        { id: 1, title: "บันทึกรายการแรกของวัน", reward: 10 },
-        { id: 2, title: "ออมเงินให้คัตสึจัง", reward: 15 },
-        { id: 3, title: "บันทึกหมวดพะโล้หรือแม่แมว", reward: 15 },
-        { id: 4, title: "บันทึกรายรับครั้งแรก", reward: 10 },
-        { id: 5, title: "หมุนกาชาปอง 1 ครั้ง", reward: 20 },
-        { id: 6, title: "เข้ามาดูแลไม่ให้คัตสึจังหิว", reward: 30 }
-    ];
 
     document.getElementById('val-date').valueAsDate = new Date();
     updateUI();
-    checkHungryState();
-    renderRoom();
-    renderQuests();
 
     function updateUI() {
         document.getElementById('coin-txt').innerText = coins;
@@ -478,319 +659,314 @@
         document.getElementById('exp-fill').style.width = (exp % 100) + '%';
     }
 
-    // 8. เช็คความหิวโหย (เกิน 7 วัน)
-    function checkHungryState() {
-        const msInDay = 24 * 60 * 60 * 1000;
-        const diffDays = (Date.now() - lastEntryTime) / msInDay;
-        const katsuChar = document.getElementById('katsu-char');
-        if (diffDays >= 7) {
-            katsuChar.classList.add('hungry-state');
+    function checkBudgetStatus() {
+        const pig = document.getElementById('tonkatsu-pig');
+        const room = document.getElementById('room-box');
+
+        let totalInc = pocketData.min.income + pocketData.natsu.income;
+        let totalExp = pocketData.min.expense + pocketData.natsu.expense;
+
+        if(isPreviewDanger || (totalInc > 0 && totalExp > totalInc)) {
+            pig.classList.add('burnt-state');
+            room.classList.add('danger-room');
+            speak("โอ๊ยย ! คัตสึจังเกรียมไปหมดแล้วฮะ“");
         } else {
-            katsuChar.classList.remove('hungry-state');
+            pig.classList.remove('burnt-state');
+            room.classList.remove('danger-room');
         }
     }
 
-    function speak(text) { document.getElementById('speech-txt').innerText = text; }
-
-    function switchNav(screen) {
-        document.querySelectorAll('.nav-item').forEach(e => e.classList.remove('active'));
-        document.querySelectorAll('.view-screen').forEach(e => e.classList.remove('active'));
-        document.getElementById('nav-' + screen).classList.add('active');
-        document.getElementById('view-' + screen).classList.add('active');
-
-        if(screen === 'room') {
-            const isHungry = document.getElementById('katsu-char').classList.contains('hungry-state');
-            if(isHungry) speak("คัตสึจังตัวซีดหิวโหยมากเลย ไม่ได้กินอะไรมา 7 วันแล้ว! รีบบันทึกรับอาหารด่วน");
-            else speak("ห้องของ katsu-chan หมุนกาชาปองมาแต่งห้องได้นะ");
-        } else if(screen === 'quests') {
-            speak("ต้องทำเควสให้สำเร็จก่อนถึงจะกดรับรางวัลได้นะจ๊ะ");
-            renderQuests();
-        } else if(screen === 'dashboard') {
-            speak("สรุปข้อมูลรายรับและรายจ่ายทั้งหมดแบบจัดเต็มจ้ะ");
-            renderDashboard();
-        } else {
-            speak("พร้อมบันทึกข้อมูลแล้วจ้ะ");
-        }
-    }
-
-    function setPocket(pkt) {
-        activePocket = pkt;
-        document.querySelectorAll('.pocket-btn').forEach(e => e.classList.remove('active'));
-        let id = pkt === 'katsu-chan' ? 'p-katsu' : 'p-' + pkt;
-        document.getElementById(id).classList.add('active');
-
-        const typeBox = document.getElementById('type-selector-box');
-        const savingBox = document.getElementById('saving-only-box');
-        const catSelect = document.getElementById('val-category');
-
-        if(pkt === 'katsu-chan') {
-            typeBox.style.display = 'none';
-            savingBox.style.display = 'flex';
-            catSelect.innerHTML = '<option value="ออมเงิน">ออมเงิน</option>';
-            transactionType = 'saving';
-            speak("โหมดออมเงินเข้า katsu-chan ได้โบนัสพิเศษนะ");
-        } else {
-            typeBox.style.display = 'flex';
-            savingBox.style.display = 'none';
-            setType('expense'); // Reset to expense by default
-            speak(`สลับกระเป๋าเรียบร้อย`);
-        }
+    function toggleDangerPreview() {
+        isPreviewDanger = !isPreviewDanger;
+        playBeep(isPreviewDanger ? 250 : 600, 'sawtooth');
+        checkBudgetStatus();
     }
 
     function setType(type) {
         transactionType = type;
         document.getElementById('btn-expense').className = type === 'expense' ? 'type-btn active-exp' : 'type-btn';
         document.getElementById('btn-income').className = type === 'income' ? 'type-btn active-inc' : 'type-btn';
-        
-        const catSelect = document.getElementById('val-category');
-        if(type === 'income') {
-            catSelect.innerHTML = '<option value="เงินเดือน">เงินเดือน</option><option value="งานพิเศษ">งานพิเศษ</option><option value="โบนัส">โบนัส</option><option value="อื่นๆ">อื่นๆ</option>';
+    }
+
+    function speak(text) { document.getElementById('speech-txt').innerText = text; }
+
+    function toggleBGM() {
+        playBeep(600, 'triangle');
+        const audio = document.getElementById('bgm-player');
+        if(isBgmPlaying) {
+            audio.pause();
+            document.getElementById('bgm-txt').innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#407a52" stroke-width="2" stroke-linecap="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg> bgm: off`;
         } else {
-            catSelect.innerHTML = '<option value="กิน">กิน</option><option value="พะโล้">พะโล้</option><option value="ต้วนถั่ว">ต้วนถั่ว</option><option value="แม่แมว">แม่แมว</option><option value="เน็ตฟลิก/สปตฟ">เน็ตฟลิก/สปตฟ</option><option value="รักษา">รักษา</option><option value="ตามใจ">ตามใจ</option><option value="ใช้ทั่วไป">ใช้ทั่วไป</option>';
+            audio.play().catch(() => {});
+            document.getElementById('bgm-txt').innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#407a52" stroke-width="2" stroke-linecap="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg> bgm: on`;
+        }
+        isBgmPlaying = !isBgmPlaying;
+    }
+
+    function switchNav(screen) {
+        playBeep(520, 'sine');
+        document.querySelectorAll('.nav-item').forEach(e => e.classList.remove('active'));
+        document.querySelectorAll('.view-screen').forEach(e => e.classList.remove('active'));
+
+        document.getElementById('nav-' + screen).classList.add('active');
+        document.getElementById('view-' + screen).classList.add('active');
+
+        if(screen === 'room') {
+            checkBudgetStatus();
+            renderRoom();
+        } else if(screen === 'quests') {
+            speak("กระดานเควสประจำวัน! ค่อยๆ ทำเพื่อเก็บ Coins กันงับ ✨");
+        } else if(screen === 'dashboard') {
+            speak("สรุปภาพรวมแยกกระเป๋า และระดับความอ้วนของ katsu-chan งับ!");
+            renderDashboard();
+        } else {
+            speak("พร้อมจดบันทึกแล้วงับ");
+        }
+    }
+
+    // สลับเลือกกระเป๋า
+    function setPocket(pkt) {
+        playBeep(480, 'square');
+        activePocket = pkt;
+        document.querySelectorAll('.pocket-btn').forEach(e => e.classList.remove('active'));
+        
+        let btnId = pkt === 'katsu-chan' ? 'p-katsu' : 'p-' + pkt;
+        document.getElementById(btnId).classList.add('active');
+
+        const typeBox = document.getElementById('type-selector-box');
+        const savingBox = document.getElementById('saving-only-box');
+        const optSaving = document.getElementById('opt-saving');
+        const catSelect = document.getElementById('val-category');
+
+        if(pkt === 'katsu-chan') {
+            typeBox.style.display = 'none';
+            savingBox.style.display = 'flex';
+            optSaving.style.display = 'block';
+            catSelect.value = 'ออมเงิน';
+            transactionType = 'saving';
+            speak("กรุ๊งกริ๊ง โหมดออมเงินเข้า katsu-chan ได้โบนัส +15 coins ✨");
+        } else {
+            typeBox.style.display = 'flex';
+            savingBox.style.display = 'none';
+            optSaving.style.display = 'none';
+            if(catSelect.value === 'ออมเงิน') catSelect.value = 'กิน';
+            transactionType = 'expense';
+            speak(`สลับ ${pkt} pocket เรียบร้อย`);
         }
     }
 
     function autoPredictCat() {
-        if(activePocket === 'katsu-chan' || transactionType === 'income') return;
+        if(activePocket === 'katsu-chan') return;
         let note = document.getElementById('val-note').value.toLowerCase();
         let catSelect = document.getElementById('val-category');
-        if(note.includes('พะโล้')) catSelect.value = 'พะโล้';
-        else if(note.includes('แมว')) catSelect.value = 'แม่แมว';
-        else if(note.includes('เน็ตฟลิก') || note.includes('netflix')) catSelect.value = 'เน็ตฟลิก/สปตฟ';
+
+        if(note.includes('พะโล้')) { catSelect.value = 'พะโล้'; speak("จับคู่หมวด พะโล้ ให้แล้วงับ"); playBeep(880, 'sine'); }
+        else if(note.includes('แมว')) { catSelect.value = 'เมื่อเป็นแม่แมว'; speak("เลือก เมื่อเป็นแม่แมว แล้วงับ "); playBeep(880, 'sine'); }
+        else if(note.includes('เน็ตฟลิก') || note.includes('netflix')) { catSelect.value = 'เน็ตฟลิก/สปตฟ'; speak("เลือก เน็ตฟลิก/สปตฟ ให้แล้วงับ"); playBeep(880, 'sine'); }
+        else if(note.includes('ต้วน')) { catSelect.value = 'ต้วนถั่ว'; }
+        else if(note.includes('ข้าว') || note.includes('กิน')) { catSelect.value = 'กิน'; }
     }
 
     function pokePiggy(e) {
-        if(document.getElementById('katsu-char').classList.contains('hungry-state')) {
-            speak("หิวจังเลยฮะ... ไม่มีแรงแล้วฮะ (รีบบันทึกเพื่อรับ exp ให้น้องกินข้าวนะ)");
+        if(document.getElementById('tonkatsu-pig').classList.contains('burnt-state')) {
+            playBeep(220, 'sawtooth');
+            speak("โอ๊ยย ! คัตสึจังเกรียมไปหมดแล้วฮะ“");
+            showFloatingText("ไหม้หมดแล้ว!", e.clientX, e.clientY);
         } else {
-            speak("ทงคัตสึทอดสีทองกรอบฉ่ำๆ กินอร่อยเลยฮะ!");
+            playBeep(750, 'triangle');
+            speak("อู๊ดดด~ katsu-chan ชิ้นหมูทอดชุ่มซอสดุ๊กดิ๊กงับ! ✨");
+            showFloatingText("กรอบฉ่ำ!", e.clientX, e.clientY);
         }
     }
 
-    // 9. ระบบอาหาร Food Evolution SVG
-    function getFoodSvg(expAmount) {
-        if(expAmount === 100 || expAmount === 0) return `<svg width="40" height="40" viewBox="0 0 40 40"><rect x="10" y="20" width="20" height="15" fill="var(--pink)"/><circle cx="20" cy="15" r="5" fill="#f00"/><rect x="18" y="10" width="4" height="10" fill="#f00"/></svg>`; // Cake
-        if(expAmount >= 80) return `<svg width="40" height="40" viewBox="0 0 40 40"><path d="M5 25 Q20 40 35 25 L5 25" fill="#e74c3c"/><path d="M10 25 Q20 15 30 25" fill="none" stroke="var(--yellow)" stroke-width="3"/></svg>`; // Ramen
-        if(expAmount >= 60) return `<svg width="40" height="40" viewBox="0 0 40 40"><rect x="10" y="20" width="20" height="10" rx="5" fill="#fff"/><rect x="10" y="15" width="20" height="8" rx="4" fill="#e74c3c"/></svg>`; // Sushi
-        if(expAmount >= 40) return `<svg width="40" height="40" viewBox="0 0 40 40"><polygon points="20,10 10,30 30,30" fill="#fff"/><rect x="15" y="25" width="10" height="5" fill="#333"/></svg>`; // Onigiri
-        return `<svg width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="10" r="6" fill="var(--orange)"/><circle cx="20" cy="20" r="6" fill="#fff"/><circle cx="20" cy="30" r="6" fill="var(--green)"/><rect x="19" y="5" width="2" height="35" fill="#8d6e63"/></svg>`; // Dango
-    }
-
-    function completeQuest(id) {
-        if(qData['q'+id] === 0) {
-            qData['q'+id] = 1; // 1 = Ready to claim
-            localStorage.setItem('mn_quest_data', JSON.stringify(qData));
-        }
-    }
-
-    function renderQuests() {
-        let html = '';
-        questDetails.forEach(q => {
-            let status = qData['q'+q.id];
-            let btnClass = status === 0 ? "locked" : (status === 1 ? "ready" : "claimed");
-            let btnText = status === 0 ? "ยังไม่สำเร็จ" : (status === 1 ? "รับรางวัล" : "รับแล้ว");
-            let cardClass = status === 2 ? "quest-card completed" : "quest-card";
-            
-            html += `
-            <div class="${cardClass}" id="q${q.id}">
-                <div><div>${q.title}</div><div style="font-size:0.7rem; color:var(--orange);">รางวัล: +${q.reward} coins</div></div>
-                <button class="quest-claim-btn ${btnClass}" onclick="claimQuest(${q.id}, ${q.reward})" ${status!==1 ? 'disabled' : ''}>${btnText}</button>
-            </div>`;
-        });
-        document.getElementById('quest-container-ui').innerHTML = html;
-    }
-
-    function claimQuest(id, rewardCoins) {
-        if(qData['q'+id] !== 1) return; 
-
-        qData['q'+id] = 2; // 2 = Claimed
-        localStorage.setItem('mn_quest_data', JSON.stringify(qData));
-        
-        coins += rewardCoins;
-        localStorage.setItem('mn_coins', coins);
-        updateUI();
-        renderQuests();
-        speak(`เย้! รับรางวัลเควสสำเร็จ ได้ +${rewardCoins} coins`);
+    function showFloatingText(text, x, y) {
+        const el = document.createElement('div');
+        el.className = 'floating-text';
+        el.innerText = text;
+        el.style.left = (x || window.innerWidth / 2) + 'px';
+        el.style.top = (y || window.innerHeight / 2) + 'px';
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 1000);
     }
 
     async function saveRecord() {
         const amt = parseFloat(document.getElementById('val-amount').value);
-        if(!amt) { speak("อย่าลืมใส่จำนวนเงินนะจ๊ะ"); return; }
-
-        // รีเซ็ตความหิวโหย
-        localStorage.setItem('mn_last_entry', Date.now());
-        document.getElementById('katsu-char').classList.remove('hungry-state');
-        completeQuest(6); // เควส: ใช้งานต่อเนื่อง
-
+        const dt = document.getElementById('val-date').value;
+        const note = document.getElementById('val-note').value;
         const cat = document.getElementById('val-category').value;
+
+        if(!amt) { speak("อย่าลืมใส่จำนวนเงินนะงับ"); playBeep(200, 'sawtooth'); return; }
+
+        playBeep(800, 'sine', 0.2);
 
         if(activePocket === 'katsu-chan') {
             katsuSavings += amt;
             localStorage.setItem('mn_katsu_savings', katsuSavings);
-            completeQuest(2);
         } else {
-            if(!pocketData[activePocket].incCats) pocketData[activePocket].incCats = {}; // Fallback for old data
-            if(!pocketData[activePocket].expCats) pocketData[activePocket].expCats = pocketData[activePocket].cats || {};
-
             if(transactionType === 'income') {
                 pocketData[activePocket].income += amt;
-                pocketData[activePocket].incCats[cat] = (pocketData[activePocket].incCats[cat] || 0) + amt;
-                completeQuest(4);
             } else {
                 pocketData[activePocket].expense += amt;
-                pocketData[activePocket].expCats[cat] = (pocketData[activePocket].expCats[cat] || 0) + amt;
-                if(cat === 'พะโล้' || cat === 'แม่แมว') completeQuest(3);
+                pocketData[activePocket].cats[cat] = (pocketData[activePocket].cats[cat] || 0) + amt;
             }
             localStorage.setItem('mn_pocket_data', JSON.stringify(pocketData));
         }
 
-        completeQuest(1); // เควส: บันทึกแรก
-        
-        let reward = activePocket === 'katsu-chan' ? 15 : 10;
-        coins += reward; 
-        exp += 20; // 9. ทุกการบันทึกได้ EXP
-        
-        // แอนิเมชันอาหาร
-        let foodSvg = getFoodSvg(exp);
-        let foodAnim = document.getElementById('food-animation');
-        foodAnim.innerHTML = foodSvg;
-        foodAnim.style.animation = 'none';
-        foodAnim.offsetHeight; 
-        foodAnim.style.animation = 'dropEat 2s forwards ease-in';
+        const data = { pocket: activePocket, type: transactionType, amount: amt, date: dt, category: cat, note: note };
 
-        let levelUpMsg = " ให้น้องกินของอร่อยแล้วนะ!";
-        if(exp >= 100) { level++; exp = 0; levelUpMsg = ` ยินดีด้วย เลเวล ${level} แล้ว! คัตสึจังได้กินเค้กฉลอง!`; }
+        try {
+            if(GAS_URL) {
+                await fetch(GAS_URL, { 
+                    method: 'POST', 
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify(data)
+                });
+            }
+            
+            let reward = activePocket === 'katsu-chan' ? 15 : 10;
+            coins += reward; exp += 20;
+            if(exp >= 100) { level++; exp = 0; speak(`🎉 LEVEL UP! ตอนนี้เลเวล ${level} แล้วงับ!`); }
 
+            localStorage.setItem('mn_coins', coins);
+            localStorage.setItem('mn_exp', exp);
+            localStorage.setItem('mn_level', level);
+            updateUI();
+            checkBudgetStatus();
+
+            showFloatingText(`+${reward} coins`, window.innerWidth / 2, window.innerHeight / 2);
+
+            document.getElementById('val-amount').value = '';
+            document.getElementById('val-note').value = '';
+            speak(`ตราประทับตึ้ง! บันทึกสำเร็จ ได้รับ +${reward} coins `);
+        } catch(e) {
+            speak("บันทึกออฟไลน์แล้ว เน็ตมาเมื่อไหร่จะอัปเดตให้นะงับ");
+        }
+    }
+
+    function claimQuest(id, rewardCoins) {
+        const qCard = document.getElementById('q' + id);
+        const qBtn = document.getElementById('qbtn' + id);
+        if(qCard.classList.contains('completed')) return;
+
+        playBeep(900, 'sine', 0.2);
+        qCard.classList.add('completed');
+        qBtn.disabled = true;
+        qBtn.innerText = 'claimed';
+
+        coins += rewardCoins;
         localStorage.setItem('mn_coins', coins);
-        localStorage.setItem('mn_exp', exp);
-        localStorage.setItem('mn_level', level);
         updateUI();
-
-        document.getElementById('val-amount').value = '';
-        document.getElementById('val-note').value = '';
-        speak(`บันทึกสำเร็จ ได้รับ +${reward} coins และ +20 exp${levelUpMsg}`);
+        speak(`เย้! ทำเควสสำเร็จ รับรางวัล +${rewardCoins} coins เรียบร้อยจ้ะ! ✨`);
     }
 
-    /* 4. GACHA SYSTEM (30 Items, SVGs, No Emoji) */
-    const gachaColors = ["ฟ้า", "ชมพู", "ม่วง", "เขียว", "เหลือง"];
-    const gachaTypes = ["พรม", "เบาะ", "ต้นไม้", "โคมไฟ", "กรอบรูป", "ดาว"];
-    let gachaItemsList = [];
-    gachaColors.forEach(c => gachaTypes.forEach(t => gachaItemsList.push(t + c)));
-
-    function getSvgForItem(name) {
-        let color = "#fff";
-        if(name.includes('ฟ้า')) color = "var(--blue)";
-        if(name.includes('ชมพู')) color = "var(--pink)";
-        if(name.includes('ม่วง')) color = "var(--purple)";
-        if(name.includes('เขียว')) color = "var(--green)";
-        if(name.includes('เหลือง')) color = "var(--yellow)";
-
-        if(name.includes('พรม')) return `<svg width="28" height="16" viewBox="0 0 30 20"><ellipse cx="15" cy="10" rx="14" ry="8" fill="${color}" stroke="#5c4b37" stroke-width="1.5"/></svg>`;
-        if(name.includes('เบาะ')) return `<svg width="24" height="24" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="4" fill="${color}" stroke="#5c4b37" stroke-width="1.5"/></svg>`;
-        if(name.includes('ต้นไม้')) return `<svg width="20" height="28" viewBox="0 0 24 30"><path d="M12 18 L6 8 Q12 0 18 8 Z" fill="var(--green)" stroke="#5c4b37" stroke-width="1.5"/><rect x="8" y="18" width="8" height="10" fill="${color}" stroke="#5c4b37" stroke-width="1.5"/></svg>`;
-        if(name.includes('โคมไฟ')) return `<svg width="20" height="28" viewBox="0 0 24 30"><path d="M12 4 L4 18 L20 18 Z" fill="${color}" stroke="#5c4b37" stroke-width="1.5"/><rect x="11" y="18" width="2" height="10" fill="#5c4b37"/><rect x="7" y="26" width="10" height="4" fill="${color}" stroke="#5c4b37" stroke-width="1.5"/></svg>`;
-        if(name.includes('กรอบรูป')) return `<svg width="24" height="24" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" fill="${color}" stroke="#5c4b37" stroke-width="1.5"/><rect x="6" y="6" width="12" height="12" fill="#fff" stroke="#5c4b37" stroke-width="1"/></svg>`;
-        if(name.includes('ดาว')) return `<svg width="24" height="24" viewBox="0 0 24 24"><polygon points="12,2 15,9 22,9 16,14 18,21 12,17 6,21 8,14 2,9 9,9" fill="${color}" stroke="#5c4b37" stroke-width="1.5"/></svg>`;
-        return "";
-    }
-
-    function openGacha() {
-        document.getElementById('gacha-overlay').style.display = 'flex';
-        document.getElementById('g-result').innerText = "กดปุ่มเพื่อหมุนกาชาปอง!";
-        document.getElementById('g-capsule').style.display = 'none';
-    }
-    function closeGacha() { document.getElementById('gacha-overlay').style.display = 'none'; }
-
-    function doSpin() {
-        if(coins < 30) { document.getElementById('g-result').innerText = "coins ไม่พอจ้ะ"; return; }
+    const gachaPool = ["กระจกวิเศษ", "จานสี", "พี่หมีตัวโต", "ชุดชงมัทฉะเกรดพิธีเกิน", "ต้นไม้ฟอกอากาศ", "โซฟานู่มมมนุ่ม", "โบว์ทงคัตสึ", "มงกุฎหมูจิ๋ว"];
+    function spinGacha() {
+        if(coins < 30) { speak("งื้ออ coins ไม่พอหมุนกาชาปอง จดบันทึกเพิ่มก่อนน้าา"); playBeep(200, 'sawtooth'); return; }
+        
+        playBeep(900, 'sine', 0.3);
         coins -= 30;
         localStorage.setItem('mn_coins', coins);
-        updateUI();
-        
-        completeQuest(5); // เควสกาชา
 
-        document.getElementById('g-result').innerText = "กำลังสุ่ม...";
-        const cap = document.getElementById('g-capsule');
-        cap.style.display = 'block';
-        cap.style.top = '120px'; 
+        let prize = gachaPool[Math.floor(Math.random() * gachaPool.length)];
+        inventory.push(prize);
+        localStorage.setItem('mn_inventory', JSON.stringify(inventory));
         
-        let spinInt = setInterval(() => { cap.style.background = ["var(--pink)","var(--blue)","var(--yellow)","var(--green)"][Math.floor(Math.random()*4)]; }, 100);
-        
-        setTimeout(() => {
-            clearInterval(spinInt);
-            let prize = gachaItemsList[Math.floor(Math.random() * gachaItemsList.length)];
-            inventory.push(prize);
-            localStorage.setItem('mn_inventory', JSON.stringify(inventory));
-            document.getElementById('g-result').innerText = `ได้รับ: ${prize}!`;
-            renderRoom();
-        }, 1200);
+        updateUI();
+        renderRoom();
+        speak(`เย้! ได้รับ : ${prize} ไปแต่งห้องกันน !`);
     }
 
     function renderRoom() {
         let html = '';
-        inventory.forEach(item => {
-            let svg = getSvgForItem(item);
-            if(svg) html += `<div class="svg-item-icon" title="${item}">${svg}</div>`;
-        });
-        document.getElementById('room-items-grid').innerHTML = html;
+        inventory.forEach(item => { html += `<span class="item-tag">${item}</span>`; });
+        document.getElementById('room-items').innerHTML = html;
     }
 
-    /* 6. Dashboard Charts (แสดงทั้งรายรับและรายจ่าย) */
+    // 📊 Dashboard Advanced Visual Charts & Fatness Level
     let expChartInstance = null;
-    let incChartInstance = null;
     let cmpChartInstance = null;
 
     function renderDashboard() {
-        let tInc = pocketData.min.income + pocketData.natsu.income;
-        let tExp = pocketData.min.expense + pocketData.natsu.expense;
-        
-        document.getElementById('sum-inc').innerText = tInc;
-        document.getElementById('sum-exp').innerText = tExp;
-        document.getElementById('sum-sav').innerText = katsuSavings;
+        document.getElementById('dash-savings-val').innerText = katsuSavings.toLocaleString();
+        const pigPig = document.getElementById('dash-fat-pig');
 
-        // Bar Chart
-        const ctxCmp = document.getElementById('compareChart').getContext('2d');
+        // ขยายขนาดตัวน้อง katsu-chan
+        let scaleFactor = 0.85 + Math.min(katsuSavings / 6000, 0.6);
+        pigPig.style.transform = `scale(${scaleFactor})`;
+
+        renderCharts();
+    }
+
+    function switchDashPocket(pkt) {
+        dashActivePocket = pkt;
+        document.getElementById('tab-dash-min').className = pkt === 'min' ? 'dash-tab active' : 'dash-tab';
+        document.getElementById('tab-dash-natsu').className = pkt === 'natsu' ? 'dash-tab active' : 'dash-tab';
+        renderCharts();
+    }
+
+    function renderCharts() {
+        const curData = pocketData[dashActivePocket];
+
+        // 1. Chart สัดส่วนรายจ่ายตามหมวดหมู่ (Donut Chart)
+        const ctx1 = document.getElementById('expenseChart').getContext('2d');
+        if(expChartInstance) expChartInstance.destroy();
+
+        let catLabels = Object.keys(curData.cats);
+        let catValues = Object.values(curData.cats);
+        if(catValues.every(v => v === 0)) { catValues = [30, 25, 20, 15, 10]; } // Default view
+
+        expChartInstance = new Chart(ctx1, {
+            type: 'doughnut',
+            data: {
+                labels: catLabels,
+                datasets: [{
+                    data: catValues,
+                    backgroundColor: ['#ffb703', '#8fa082', '#ff85a1', '#9d4edd', '#48cae4']
+                }]
+            },
+            options: { 
+                plugins: { 
+                    legend: { position: 'bottom', labels: { boxWidth: 12, font: { family: 'Mitr' } } },
+                    title: { display: true, text: `สัดส่วนรายจ่าย: ${dashActivePocket} pocket`, font: { family: 'Mitr' } }
+                } 
+            }
+        });
+
+        // 2. Chart เปรียบเทียบ รายรับ vs รายจ่าย (Bar Chart)
+        const ctx2 = document.getElementById('compareChart').getContext('2d');
         if(cmpChartInstance) cmpChartInstance.destroy();
-        cmpChartInstance = new Chart(ctxCmp, {
+
+        cmpChartInstance = new Chart(ctx2, {
             type: 'bar',
             data: {
-                labels: ['รายรับทั้งหมด', 'รายจ่ายทั้งหมด'],
-                datasets: [{ data: [tInc, tExp], backgroundColor: ['var(--blue)', 'var(--pink)'], borderRadius: 6 }]
+                labels: ['รายรับ', 'รายจ่าย'],
+                datasets: [{
+                    label: 'บาท (฿)',
+                    data: [curData.income || 1000, curData.expense || 500],
+                    backgroundColor: ['#b7e4c7', '#ffafcc'],
+                    borderRadius: 10
+                }]
             },
-            options: { plugins: { legend: { display: false } }, maintainAspectRatio: false, scales: { y: { beginAtZero: true } } }
+            options: {
+                plugins: {
+                    legend: { display: false },
+                    title: { display: true, text: `เปรียบเทียบ รายรับ vs รายจ่าย (${dashActivePocket})`, font: { family: 'Mitr' } }
+                },
+                scales: { y: { beginAtZero: true } }
+            }
         });
+    }
 
-        // Get merged categories
-        let allExpCats = {}; let allIncCats = {};
-        Object.keys(pocketData.min.expCats || pocketData.min.cats || {}).forEach(k => allExpCats[k] = (allExpCats[k]||0) + (pocketData.min.expCats ? pocketData.min.expCats[k] : pocketData.min.cats[k]));
-        Object.keys(pocketData.natsu.expCats || pocketData.natsu.cats || {}).forEach(k => allExpCats[k] = (allExpCats[k]||0) + (pocketData.natsu.expCats ? pocketData.natsu.expCats[k] : pocketData.natsu.cats[k]));
-        
-        Object.keys(pocketData.min.incCats || {}).forEach(k => allIncCats[k] = (allIncCats[k]||0) + pocketData.min.incCats[k]);
-        Object.keys(pocketData.natsu.incCats || {}).forEach(k => allIncCats[k] = (allIncCats[k]||0) + pocketData.natsu.incCats[k]);
-
-        // Donut: Income
-        const ctxInc = document.getElementById('incomeChart').getContext('2d');
-        if(incChartInstance) incChartInstance.destroy();
-        let incLabels = Object.keys(allIncCats);
-        let incValues = Object.values(allIncCats);
-        if(incValues.length === 0 || incValues.every(v => v === 0)) { incLabels=['ยังไม่มีข้อมูล']; incValues=[1]; }
-        incChartInstance = new Chart(ctxInc, {
-            type: 'doughnut',
-            data: { labels: incLabels, datasets: [{ data: incValues, backgroundColor: ['var(--blue)','var(--green)','var(--yellow)','var(--orange)'] }] },
-            options: { plugins: { legend: { position: 'bottom', labels: { boxWidth: 8, font: { size: 9, family: 'Mitr' } } } }, maintainAspectRatio: false }
-        });
-
-        // Donut: Expense
-        const ctxExp = document.getElementById('expenseChart').getContext('2d');
-        if(expChartInstance) expChartInstance.destroy();
-        let expLabels = Object.keys(allExpCats);
-        let expValues = Object.values(allExpCats);
-        if(expValues.length === 0 || expValues.every(v => v === 0)) { expLabels=['ยังไม่มีข้อมูล']; expValues=[1]; }
-        expChartInstance = new Chart(ctxExp, {
-            type: 'doughnut',
-            data: { labels: expLabels, datasets: [{ data: expValues, backgroundColor: ['var(--pink)','var(--purple)','var(--light-orange)','var(--light-blue)'] }] },
-            options: { plugins: { legend: { position: 'bottom', labels: { boxWidth: 8, font: { size: 9, family: 'Mitr' } } } }, maintainAspectRatio: false }
-        });
+    function exportBackup() {
+        let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(localStorage));
+        let downloadAnchor = document.createElement('a');
+        downloadAnchor.setAttribute("href", dataStr);
+        downloadAnchor.setAttribute("download", "minnatsu_backup.json");
+        document.body.appendChild(downloadAnchor);
+        downloadAnchor.click();
+        downloadAnchor.remove();
+        speak("Save Point !");
     }
 </script>
 </body>
